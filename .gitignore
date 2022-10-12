@@ -1,0 +1,9 @@
+.idea
+*.tfstate*
+tfplan
+*.lock.hcl
+.terraform
+
+node_modules/
+junit.xml
+subscriptions.json
