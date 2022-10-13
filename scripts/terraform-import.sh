@@ -63,10 +63,10 @@ for subscription in $(echo "${subscriptions[@]}" | jq -c '.[]'); do
         if [ "$1" = "--import" ]; then
 
             echo "Importing ACME resources into terraform state..."
-            terraform import -var builtFrom=azure-enterprise -var env=prod -var product=enterprise -var-file=../../environments/prod/prod.tfvars module.acme.azuread_application.appreg $APP_ID
-            terraform import -var builtFrom=azure-enterprise -var env=prod -var product=enterprise -var-file=../../environments/prod/prod.tfvars module.acme.azurerm_key_vault.kv $KEYVAULT_ID
-            terraform import -var builtFrom=azure-enterprise -var env=prod -var product=enterprise -var-file=../../environments/prod/prod.tfvars module.acme.azurerm_storage_account.stg $STORAGE_ACCOUNT_ID
-            # terraform import -var builtFrom=azure-enterprise -var env=prod -var product=enterprise -var-file=../../environments/prod/prod.tfvars module.acme.windows_function_app.func_app $WEBAPP_ID
+            terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars module.acme.azuread_application.appreg $APP_ID
+            terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars module.acme.azurerm_key_vault.kv $KEYVAULT_ID
+            terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars module.acme.azurerm_storage_account.stg $STORAGE_ACCOUNT_ID
+            # terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars module.acme.windows_function_app.func_app $WEBAPP_ID
         else
             echo "ACME application registration $APP_ID will be imported to module.acme.azuread_application.appreg"
             echo "ACME keyvault $(echo "acme"$(echo ${SUBSCRIPTION_NAME} | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g')) will be imported to module.acme.azurerm_key_vault.kv"
