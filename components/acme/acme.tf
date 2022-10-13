@@ -8,8 +8,6 @@ module "acme" {
   product                        = var.product
   subscription_id                = data.azurerm_client_config.current.subscription_id
   acme_storage_account_repl_type = var.acme_storage_account_repl_type
-  # dns_contributor_group_object_id     = data.azuread_group.dns_contributor.object_id
-  # platform_operations_group_object_id = data.azuread_group.platform_operations.object_id
 }
 
 module "tags" {
