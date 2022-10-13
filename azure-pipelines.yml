@@ -199,8 +199,6 @@ variables:
     value: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
   - name: component
     value: acme
-  - name: service_connection
-    value: $[replace($(System.StageName), "_", "-")]
 
 
 stages:
