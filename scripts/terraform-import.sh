@@ -43,15 +43,17 @@ for subscription in $(echo "${subscriptions[@]}" | jq -c '.[]'); do
     SUBSCRIPTION_NAME=$(echo $subscription | jq -r '.subscription_name')
     echo "SUBSCRIPTION_NAME is $SUBSCRIPTION_NAME"
 
-    # set context
-    az account set -s ${SUBSCRIPTION_NAME}
-
     # get subscription id
     SUBSCRIPTION_ID=$(az account subscription list --query "[?displayName=='${SUBSCRIPTION_NAME}'].{subscriptionId:subscriptionId}" --only-show-errors -o tsv)
     echo "SUBSCRIPTION_ID is $SUBSCRIPTION_ID"
 
+    # get environment
     ENVIRONMENT=$(echo "${subscription}" | jq -r '.environment')
     echo "ENVIRONMENT is $ENVIRONMENT"
+
+    # set context
+    echo "Setting Azure CLI context to subscription $SUBSCRIPTION_NAME"
+    az account set -s ${SUBSCRIPTION_NAME}
 
     APP_ID=$(az ad app list --display-name "acme-"${SUBSCRIPTION_NAME} --query '[].{id:id}' -o tsv)
     KEYVAULT_ID=$(az keyvault show --name "acme"$(echo ${SUBSCRIPTION_NAME} | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g') --query '{id:id}' -o tsv)
