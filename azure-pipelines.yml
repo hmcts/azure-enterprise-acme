@@ -134,7 +134,9 @@ stages:
                   overrideAction: ${{ parameters.overrideAction }}
                   ${{ if contains(deployment.environment, 'demo') }}:
                     environment: 'demo'
-                  ${{ if contains(deployment.environment, 'dev', 'qa') }}:
+                  ${{ if contains(deployment.environment, 'dev') }}:
+                    environment: 'dev'
+                  ${{ if contains(deployment.environment, 'qa') }}:
                     environment: 'dev'
                   ${{ if contains(deployment.environment, 'ithc') }}:
                     environment: 'ithc'
@@ -144,7 +146,9 @@ stages:
                     environment: 'ptlsbox'
                   ${{ if contains(deployment.environment, 'prod') }}:
                     environment: 'prod'                    
-                  ${{ if contains(deployment.environment, 'sbox', 'sandbox') }}:
+                  ${{ if contains(deployment.environment, 'sbox') }}:
+                    environment: 'sbox'
+                  ${{ if contains(deployment.environment, 'sandbox') }}:
                     environment: 'sbox'
                   ${{ if contains(deployment.environment, 'stg') }}:
                     environment: 'stg'
@@ -153,11 +157,13 @@ stages:
                   component: ${{ variables.component }}
                   serviceConnection: ${{ deployment.service_connection }}
                   terraformInitSubscription: ${{ variables.init_subscription }}
-                  ${{ if contains(deployment.stage, 'cft', 'cnp') }}:
+                  ${{ if contains(deployment.stage, 'cft') }}:
                     product: 'cft-platform'
-                  ${{ if contains(['deployment.stage'], 'sharedservices') }}:
+                  ${{ if contains(deployment.stage, 'cnp') }}:
+                    product: 'cft-platform'
+                  ${{ if contains(deployment.stage, 'sharedservices') }}:
                     product: 'sds-platform'
-                  ${{ if contains(['deployment.stage'], 'hub') }}:
+                  ${{ if contains(deployment.stage, 'hub') }}:
                     product: 'hub'
-                  ${{ if contains(['deployment.stage'], 'soc') }}:
+                  ${{ if contains(deployment.stage, 'soc') }}:
                     product: 'soc'
