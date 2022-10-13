@@ -233,13 +233,13 @@ stages:
                 env: 
                   stage: ${{ deployment.stage }}
           - job: TerraformPlanApply
+            variables:
+              serviceConnection: $(GetServiceConnection.serviceConnection)
             pool:
               vmImage: ${{ variables.agentPool }}
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
             steps:
               - template: steps/terraform.yaml@cnp-azuredevops-libraries
-                variables:
-                  serviceConnection: $(GetServiceConnection.serviceConnection)
                 parameters:
                   overrideAction: ${{ parameters.overrideAction }}
                   environment: ${{ deployment.environment }}
