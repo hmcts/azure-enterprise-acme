@@ -199,6 +199,8 @@ variables:
     value: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
   - name: component
     value: acme
+  - name: service_connection
+    value: $[replace($(System.StageName), "_", "-")]
 
 
 stages:
@@ -230,6 +232,6 @@ stages:
                   environment: ${{ deployment.environment }}
                   component: ${{ variables.component }}
                   # serviceConnection: ${{ deployment.service_connection }}
-                  serviceConnection: ${{ replace(${{deployment.stage}}, "_", "-") }}
+                  serviceConnection: ${{ variables.service_connection }}
                   terraformInitSubscription: ${{ variables.init_subscription }}
                   product: ${{ deployment.product }}
