@@ -238,10 +238,12 @@ stages:
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
             steps:
               - template: steps/terraform.yaml@cnp-azuredevops-libraries
+                variables:
+                  serviceConnection: $(GetServiceConnection.serviceConnection)
                 parameters:
                   overrideAction: ${{ parameters.overrideAction }}
                   environment: ${{ deployment.environment }}
                   component: ${{ variables.component }}
-                  serviceConnection: $(serviceConnection)
+                  serviceConnection: $(variables.serviceConnection)
                   terraformInitSubscription: ${{ variables.init_subscription }}
                   product: ${{ deployment.product }}
