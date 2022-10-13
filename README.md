@@ -10,6 +10,10 @@ The service connections are created in the [hmcts/azure-enterprise](https://gith
 
 The subscription must be added to the prod.tfvars file in that repo and the pipeline ran so that the subscription and service connection are created.
 
+A Global Administrator must grant consent for the tenant to the service principal being used by the service connection.
+
+This is required for the service connection to be able to create the application registration for ACME.
+
 ## Adding a new subscription
 
 To add a new subscription, simply add a stage to the environment_components parameter e.g.
