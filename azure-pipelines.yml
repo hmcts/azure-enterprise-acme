@@ -132,27 +132,27 @@ stages:
               - template: steps/terraform.yaml@cnp-azuredevops-libraries
                 parameters:
                   overrideAction: ${{ parameters.overrideAction }}
-                  ${{ if contains(deployment.environment, 'demo') }}:
+                  ${{ if contains(deployment.stage, 'demo') }}:
                     environment: 'demo'
-                  ${{ if contains(deployment.environment, 'dev') }}:
+                  ${{ if contains(deployment.stage, 'dev') }}:
                     environment: 'dev'
-                  ${{ if contains(deployment.environment, 'qa') }}:
+                  ${{ if contains(deployment.stage, 'qa') }}:
                     environment: 'dev'
-                  ${{ if contains(deployment.environment, 'ithc') }}:
+                  ${{ if contains(deployment.stage, 'ithc') }}:
                     environment: 'ithc'
-                  ${{ if contains(deployment.environment, 'ptl') }}:
+                  ${{ if contains(deployment.stage, 'ptl') }}:
                     environment: 'ptl'
-                  ${{ if contains(deployment.environment, 'ptlsbox') }}:
+                  ${{ if contains(deployment.stage, 'ptlsbox') }}:
                     environment: 'ptlsbox'
-                  ${{ if contains(deployment.environment, 'prod') }}:
+                  ${{ if contains(deployment.stage, 'prod') }}:
                     environment: 'prod'                    
-                  ${{ if contains(deployment.environment, 'sbox') }}:
+                  ${{ if contains(deployment.stage, 'sbox') }}:
                     environment: 'sbox'
-                  ${{ if contains(deployment.environment, 'sandbox') }}:
+                  ${{ if contains(deployment.stage, 'sandbox') }}:
                     environment: 'sbox'
-                  ${{ if contains(deployment.environment, 'stg') }}:
+                  ${{ if contains(deployment.stage, 'stg') }}:
                     environment: 'stg'
-                  ${{ if contains(deployment.environment, 'test') }}:
+                  ${{ if contains(deployment.stage, 'test') }}:
                     environment: 'test'
                   component: ${{ variables.component }}
                   serviceConnection: ${{ deployment.service_connection }}
