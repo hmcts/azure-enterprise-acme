@@ -28,3 +28,28 @@ The stage names in Azure DevOps can only contain letters, numbers and hyphens.
 The service connection names can only contain letters, numbers and underscores.
 
 The pipeline parameters for environment and product will be computed based on the name of the subscription.
+
+## Importing an existing subscription
+
+1. Ensure you have azure-cli installed and logged in as well as terraform and jq.
+
+2. Create a file called subscriptions.json in the scripts folder and create a json array with the subscription to be imported and its details e.g.
+
+```json
+   [
+      {
+         "subscription_name": "DCD-CFT-Sandbox"
+      },
+      {
+         "subscription_name": "DCD-CFTAPPS-SBOX"
+      },
+   ]
+```
+
+3. Run terraform init inside the components/enterprise directory for the environment you are targeting.
+
+4. Run the script from the components/enterprise directory without any flags to perform a dry-run i.e. `scripts/terraform-import.sh`. The script will output the resources to be imported and their address IDs. Check these values are expected.
+
+5. If the values returned by the dry-run are correct, run the script again and append `--import`. This will run `terraform import`.
+
+   Terraform will attempt to import the resources to the address IDs.
