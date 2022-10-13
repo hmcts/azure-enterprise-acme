@@ -27,7 +27,6 @@ parameters:
       - stage: 'dcd_cft_sandbox'
         environment: 'sbox'
         product: 'cft-platform'
-        service_connection: $[replace($(System.StageDisplayName), '_', '-')]
         dependsOn: 'Precheck'
       # - stage: 'dcd_cftappsdata_demo'
       #   environment: 'sbox'
@@ -230,6 +229,7 @@ stages:
                   overrideAction: ${{ parameters.overrideAction }}
                   environment: ${{ deployment.environment }}
                   component: ${{ variables.component }}
-                  serviceConnection: ${{ deployment.service_connection }}
+                  # serviceConnection: ${{ deployment.service_connection }}
+                  serviceConnection: $[replace($(System.StageDisplayName), '_', '-')]
                   terraformInitSubscription: ${{ variables.init_subscription }}
                   product: ${{ deployment.product }}
