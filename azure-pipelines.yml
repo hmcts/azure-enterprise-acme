@@ -221,17 +221,28 @@ stages:
       - stage: ${{ deployment.stage }}
         dependsOn: ${{ deployment.dependsOn }}
         jobs:
-          - job: TerraformPlanApply
+          - job: serviceConnection
             pool:
               vmImage: ${{ variables.agentPool }}
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
             steps:
-              - template: steps/terraform.yaml@cnp-azuredevops-libraries
-                parameters:
-                  overrideAction: ${{ parameters.overrideAction }}
-                  environment: ${{ deployment.environment }}
-                  component: ${{ variables.component }}
-                  # serviceConnection: ${{ deployment.service_connection }}
-                  serviceConnection: ${{ variables.service_connection }}
-                  terraformInitSubscription: ${{ variables.init_subscription }}
-                  product: ${{ deployment.product }}
+              - task: Bash@3
+                inputs:
+                  targetType: inline
+                  script: echo "${stage//_/-}"
+                  env: 
+                    stage: ${{ deployment.stage }}
+          # - job: TerraformPlanApply
+          #   pool:
+          #     vmImage: ${{ variables.agentPool }}
+          #   timeoutInMinutes: ${{ variables.timeoutInMinutes }}
+          #   steps:
+          #     - template: steps/terraform.yaml@cnp-azuredevops-libraries
+          #       parameters:
+          #         overrideAction: ${{ parameters.overrideAction }}
+          #         environment: ${{ deployment.environment }}
+          #         component: ${{ variables.component }}
+          #         # serviceConnection: ${{ deployment.service_connection }}
+          #         serviceConnection: ${{ variables.service_connection }}
+          #         terraformInitSubscription: ${{ variables.init_subscription }}
+          #         product: ${{ deployment.product }}
