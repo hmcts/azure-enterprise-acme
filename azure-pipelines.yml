@@ -230,6 +230,6 @@ stages:
                   environment: ${{ deployment.environment }}
                   component: ${{ variables.component }}
                   # serviceConnection: ${{ deployment.service_connection }}
-                  serviceConnection: $[replace(${{ deployment.stage }}, '_', '-')]
+                  serviceConnection: ${{ replace(deployment.stage, "_", "-") }}
                   terraformInitSubscription: ${{ variables.init_subscription }}
                   product: ${{ deployment.product }}
