@@ -246,6 +246,6 @@ stages:
                   overrideAction: ${{ parameters.overrideAction }}
                   environment: ${{ deployment.environment }}
                   component: ${{ variables.component }}
-                  serviceConnection: $(variables.serviceConnection)
+                  serviceConnection: $(serviceConnection)
                   terraformInitSubscription: ${{ variables.init_subscription }}
                   product: ${{ deployment.product }}
