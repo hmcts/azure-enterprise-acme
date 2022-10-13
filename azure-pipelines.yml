@@ -230,8 +230,8 @@ stages:
                 inputs:
                   targetType: inline
                   script: echo "${stage//_/-}"
-                  env: 
-                    stage: ${{ deployment.stage }}
+                env: 
+                  stage: ${{ deployment.stage }}
           # - job: TerraformPlanApply
           #   pool:
           #     vmImage: ${{ variables.agentPool }}
