@@ -225,16 +225,18 @@ stages:
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
             steps:
               - task: Bash@3
+                name: GetServiceConnection
                 inputs:
                   targetType: inline
                   script: |
                     serviceConnection="${stage//_/-}"
-                    echo "##vso[task.setvariable variable=serviceConnection]$serviceConnection"
+                    echo "##vso[task.setvariable variable=serviceConnection;isOutput=true]$serviceConnection"
                 env: 
                   stage: ${{ deployment.stage }}
           - job: TerraformPlanApply
+            dependsOn: GetServiceConnection
             variables:
-              serviceConnection: $(GetServiceConnection.serviceConnection)
+              serviceConnection: $[ dependencies.GetServiceConnection.outputs['GetServiceConnection.serviceConnection'] ]
             pool:
               vmImage: ${{ variables.agentPool }}
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
