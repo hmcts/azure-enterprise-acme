@@ -231,8 +231,8 @@ stages:
                   component: ${{ variables.component }}
                   serviceConnection: ${{ deployment.service_connection }}
                   terraformInitSubscription: ${{ variables.init_subscription }}
-                ${{ if contains(deployment.stage, 'cft') }}:
-                  product: 'cft-platform'
+                  ${{ if contains(deployment.stage, 'cft') }}:
+                    product: 'cft-platform'
                 # ${{ if contains(['deployment.stage'], 'sds') }}:
                 #   product: 'sds-platform'
                 # ${{ if contains(['deployment.stage'], 'hub') }}:
