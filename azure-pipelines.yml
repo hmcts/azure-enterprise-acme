@@ -134,10 +134,10 @@ stages:
               - task: AzureCLI@2
                 inputs:
                   azureSubscription: ${{ variables.service_connection }}
-                  scriptType: 'bash'
+                  scriptType: 'ps'
                   scriptLocation: 'inlineScript'
                   inlineScript: |
-                    SUBSCRIPTION_NAME=${{ deployment.subscription_name }}
+                    SUBSCRIPTION_NAME="${{ deployment.subscription_name }}"
                     az extension add --name account --yes
                     az account subscription list --query "[?displayName=='$SUBSCRIPTION_NAME'].{subscriptionId:subscriptionId}"
               # - template: steps/terraform.yaml@cnp-azuredevops-libraries
