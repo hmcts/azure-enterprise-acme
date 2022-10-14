@@ -25,7 +25,7 @@ parameters:
     type: object
     default:
       - stage: 'dcd_cft_sandbox'
-        service_connection: 'GA'
+        subscription_name: 'dcd-cft-sandbox'
       # - stage: 'dcd_cftappsdata_demo'
       #   service_connection: 'dcd-cftappsdata-demo'
       # - stage: 'dcd_cftapps_demo'
@@ -101,6 +101,8 @@ variables:
     value: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
   - name: component
     value: acme
+  - name: service_connection
+    value: 'GA'
 
 
 stages:
@@ -131,10 +133,10 @@ stages:
             steps:
               - task: AzureCLI@2
                 inputs:
-                  azureSubscription: ${{ deployment.service_connection }}
+                  azureSubscription: ${{ variables.service_connection }}
                   scriptType: 'bash'
                   scriptLocation: 'inlineScript'
-                  arguments: SUBSCRIPTION_NAME=$[replace(deployment.stage, '_', '-')]
+                  arguments: SUBSCRIPTION_NAME=${{ deployment.subscription_name }}
                   inlineScript: |
                     az extension add --name account --yes
                     az account subscription list --query "[?displayName=='$SUBSCRIPTION_NAME'].{subscriptionId:subscriptionId}"
