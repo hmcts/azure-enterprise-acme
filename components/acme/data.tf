@@ -13,3 +13,7 @@ data "azuread_group" "platform_operations" {
 data "azuread_group" "dns_contributor" {
   display_name = "DTS Public DNS Contributor (env:${lower(var.env)})"
 }
+
+data "azuread_application" "appreg" {
+  display_name = "acme-${lower(data.azurerm_subscription.current.display_name)}"
+}
