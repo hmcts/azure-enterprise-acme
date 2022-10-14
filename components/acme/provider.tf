@@ -15,7 +15,7 @@ provider "azurerm" {
 provider "azurerm" {
   features {}
   subscription_id = var.subscription_id
-  alias = "acme"
+  alias           = "acme"
 }
 
 provider "azuread" {}
