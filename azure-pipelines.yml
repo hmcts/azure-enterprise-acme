@@ -102,7 +102,7 @@ variables:
   - name: component
     value: acme
   - name: service_connection
-    value: 'GA'
+    value: 'dcd-cft-sandbox'
 
 
 stages:
