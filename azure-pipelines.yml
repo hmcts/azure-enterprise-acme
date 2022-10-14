@@ -170,7 +170,6 @@ stages:
                     environment: 'test'
                   component: ${{ variables.component }}
                   serviceConnection: ${{ variables.service_connection }}
-                  TF_VAR_subscription: $(subscriptionId)
                   terraformInitSubscription: ${{ variables.init_subscription }}
                   ${{ if contains(deployment.stage, 'cft') }}:
                     product: 'cft-platform'
@@ -182,3 +181,6 @@ stages:
                     product: 'hub'
                   ${{ if contains(deployment.stage, 'soc') }}:
                     product: 'soc'
+                variables:
+                  TF_VAR_subscription: $(subscriptionId)
+
