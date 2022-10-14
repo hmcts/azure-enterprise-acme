@@ -126,7 +126,7 @@ stages:
         ${{ else }}:
           dependsOn: 'dcd_cft_sandbox'
         jobs:
-          - job: TerraformPlanApply
+          - job: GetSubscriptionId
             pool:
               vmImage: ${{ variables.agentPool }}
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
@@ -142,7 +142,16 @@ stages:
                     Install-Module Az.Accounts -Force
                     Set-AzContext -Subscription $SUBSCRIPTION_NAME | Out-Null
                     $SUBSCRIPTION_ID=(Get-AzSubscription -SubscriptionName $SUBSCRIPTION_NAME | Select-Object -ExpandProperty Id)
-                    Write-Host "##vso[task.setvariable variable=subscriptionId;]$SUBSCRIPTION_ID"
+                    Write-Host "##vso[task.setvariable variable=subscriptionId;isOutput=true]$SUBSCRIPTION_ID"
+          - job: TerraformPlanApply
+            dependsOn: GetSubscriptionId
+            pool:
+              vmImage: ${{ variables.agentPool }}
+            timeoutInMinutes: ${{ variables.timeoutInMinutes }}
+            variables:
+              # TF_VAR_subscription: $(subscriptionId)
+              TF_VAR_subscription: $[ dependencies.GetSubscriptionId.outputs['AzurePowerShell.subscriptionId'] ]
+            steps:
               - template: steps/terraform.yaml@cnp-azuredevops-libraries
                 parameters:
                   overrideAction: ${{ parameters.overrideAction }}
@@ -181,6 +190,4 @@ stages:
                     product: 'hub'
                   ${{ if contains(deployment.stage, 'soc') }}:
                     product: 'soc'
-                variables:
-                  TF_VAR_subscription: $(subscriptionId)
 
