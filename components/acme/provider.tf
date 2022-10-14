@@ -14,7 +14,7 @@ provider "azurerm" {
 
 provider "azurerm" {
   features {}
-  subscription_id = var.subscription
+  subscription_id = local.subscriptions[var.subscription].id
   alias           = "acme"
 }
 

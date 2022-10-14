@@ -9,7 +9,7 @@ resources:
   repositories:
     - repository: cnp-azuredevops-libraries
       type: github
-      ref: refs/heads/master
+      ref: refs/heads/DTSPO-9746/update-pipeline
       name: hmcts/cnp-azuredevops-libraries
       endpoint: 'hmcts (1)'
 
@@ -148,12 +148,10 @@ stages:
             pool:
               vmImage: ${{ variables.agentPool }}
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
-            variables:
-              # TF_VAR_subscription: $(subscriptionId)
-              TF_VAR_subscription: $[ dependencies.GetSubscriptionId.outputs['AzurePowerShell.subscriptionId'] ]
             steps:
               - template: steps/terraform.yaml@cnp-azuredevops-libraries
                 parameters:
+                  subscription: ${{ deployment.subscription_name }}
                   overrideAction: ${{ parameters.overrideAction }}
                   ${{ if contains(deployment.stage, 'demo') }}:
                     environment: 'demo'
