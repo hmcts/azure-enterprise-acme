@@ -170,7 +170,7 @@ stages:
                   ${{ if contains(deployment.stage, 'sbox') }}:
                     environment: 'sbox'
                   ${{ if contains(deployment.stage, 'sandbox') }}:
-                    environment: 'prod'
+                    environment: 'sbox'
                   ${{ if contains(deployment.stage, 'stg') }}:
                     environment: 'stg'
                   ${{ if contains(deployment.stage, 'test') }}:
