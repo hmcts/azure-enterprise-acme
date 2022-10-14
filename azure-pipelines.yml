@@ -139,7 +139,7 @@ stages:
                   arguments: SUBSCRIPTION_NAME=${{ deployment.subscription_name }}
                   inlineScript: |
                     az extension add --name account --yes
-                    az account subscription list --query "[?displayName=='$SUBSCRIPTION_NAME'].{subscriptionId:subscriptionId}"
+                    az account subscription list --query "[?displayName=='${{ deployment.subscription_name }}'].{subscriptionId:subscriptionId}"
               # - template: steps/terraform.yaml@cnp-azuredevops-libraries
               #   parameters:
               #     overrideAction: ${{ parameters.overrideAction }}
