@@ -134,7 +134,7 @@ stages:
                   azureSubscription: ${{ deployment.service_connection }}
                   scriptType: 'bash'
                   scriptLocation: 'inlineScript'
-                  arguments: $[replace(deployment.stage, '_', '-')]
+                  arguments: SUBSCRIPTION_NAME=$[replace(deployment.stage, '_', '-')]
                   inlineScript: |
                     az account subscription list --query "[?displayName=='$SUBSCRIPTION_NAME'].{subscriptionId:subscriptionId}" --only-show-errors -o tsv
               # - template: steps/terraform.yaml@cnp-azuredevops-libraries
