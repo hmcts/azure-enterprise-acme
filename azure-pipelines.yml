@@ -135,7 +135,8 @@ stages:
                   scriptType: 'bash'
                   scriptLocation: 'inlineScript'
                   arguments: $[replace(deployment.stage, '_', '-')]
-                  inlineScript: 'az account subscription list --query "[?displayName=='$SUBSCRIPTION_NAME'].{subscriptionId:subscriptionId}" --only-show-errors -o tsv'
+                  inlineScript: |
+                    az account subscription list --query "[?displayName=='$SUBSCRIPTION_NAME'].{subscriptionId:subscriptionId}" --only-show-errors -o tsv
               # - template: steps/terraform.yaml@cnp-azuredevops-libraries
               #   parameters:
               #     overrideAction: ${{ parameters.overrideAction }}
