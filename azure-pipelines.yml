@@ -140,43 +140,45 @@ stages:
                   inline: |
                     $SUBSCRIPTION_NAME="${{ deployment.subscription_name }}"
                     Install-Module Az.Accounts -Force
-                    Set-AzContext -Subscription $SUBSCRIPTION_NAME
-                    Get-AzSubscription -SubscriptionName $SUBSCRIPTION_NAME | Select-Object -ExpandProperty Id
-              # - template: steps/terraform.yaml@cnp-azuredevops-libraries
-              #   parameters:
-              #     overrideAction: ${{ parameters.overrideAction }}
-              #     ${{ if contains(deployment.stage, 'demo') }}:
-              #       environment: 'demo'
-              #     ${{ if contains(deployment.stage, 'dev') }}:
-              #       environment: 'dev'
-              #     ${{ if contains(deployment.stage, 'qa') }}:
-              #       environment: 'dev'
-              #     ${{ if contains(deployment.stage, 'ithc') }}:
-              #       environment: 'ithc'
-              #     ${{ if contains(deployment.stage, 'ptl') }}:
-              #       environment: 'ptl'
-              #     ${{ if contains(deployment.stage, 'ptlsbox') }}:
-              #       environment: 'ptlsbox'
-              #     ${{ if contains(deployment.stage, 'prod') }}:
-              #       environment: 'prod'                    
-              #     ${{ if contains(deployment.stage, 'sbox') }}:
-              #       environment: 'sbox'
-              #     ${{ if contains(deployment.stage, 'sandbox') }}:
-              #       environment: 'sbox'
-              #     ${{ if contains(deployment.stage, 'stg') }}:
-              #       environment: 'stg'
-              #     ${{ if contains(deployment.stage, 'test') }}:
-              #       environment: 'test'
-              #     component: ${{ variables.component }}
-              #     serviceConnection: ${{ deployment.service_connection }}
-              #     terraformInitSubscription: ${{ variables.init_subscription }}
-              #     ${{ if contains(deployment.stage, 'cft') }}:
-              #       product: 'cft-platform'
-              #     ${{ if contains(deployment.stage, 'cnp') }}:
-              #       product: 'cft-platform'
-              #     ${{ if contains(deployment.stage, 'sharedservices') }}:
-              #       product: 'sds-platform'
-              #     ${{ if contains(deployment.stage, 'hub') }}:
-              #       product: 'hub'
-              #     ${{ if contains(deployment.stage, 'soc') }}:
-              #       product: 'soc'
+                    Set-AzContext -Subscription $SUBSCRIPTION_NAME | Out-Null
+                    $SUBSCRIPTION_ID=(Get-AzSubscription -SubscriptionName $SUBSCRIPTION_NAME | Select-Object -ExpandProperty Id)
+                    Write-Host "##vso[task.setvariable variable=subscriptionId;]$SUBSCRIPTION_ID"
+              - template: steps/terraform.yaml@cnp-azuredevops-libraries
+                parameters:
+                  overrideAction: ${{ parameters.overrideAction }}
+                  ${{ if contains(deployment.stage, 'demo') }}:
+                    environment: 'demo'
+                  ${{ if contains(deployment.stage, 'dev') }}:
+                    environment: 'dev'
+                  ${{ if contains(deployment.stage, 'qa') }}:
+                    environment: 'dev'
+                  ${{ if contains(deployment.stage, 'ithc') }}:
+                    environment: 'ithc'
+                  ${{ if contains(deployment.stage, 'ptl') }}:
+                    environment: 'ptl'
+                  ${{ if contains(deployment.stage, 'ptlsbox') }}:
+                    environment: 'ptlsbox'
+                  ${{ if contains(deployment.stage, 'prod') }}:
+                    environment: 'prod'                    
+                  ${{ if contains(deployment.stage, 'sbox') }}:
+                    environment: 'sbox'
+                  ${{ if contains(deployment.stage, 'sandbox') }}:
+                    environment: 'sbox'
+                  ${{ if contains(deployment.stage, 'stg') }}:
+                    environment: 'stg'
+                  ${{ if contains(deployment.stage, 'test') }}:
+                    environment: 'test'
+                  component: ${{ variables.component }}
+                  serviceConnection: ${{ variables.service_connection }}
+                  subscriptionId: $(subscriptionId)
+                  terraformInitSubscription: ${{ variables.init_subscription }}
+                  ${{ if contains(deployment.stage, 'cft') }}:
+                    product: 'cft-platform'
+                  ${{ if contains(deployment.stage, 'cnp') }}:
+                    product: 'cft-platform'
+                  ${{ if contains(deployment.stage, 'sharedservices') }}:
+                    product: 'sds-platform'
+                  ${{ if contains(deployment.stage, 'hub') }}:
+                    product: 'hub'
+                  ${{ if contains(deployment.stage, 'soc') }}:
+                    product: 'soc'
