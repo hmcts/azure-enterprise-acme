@@ -134,7 +134,7 @@ stages:
               - task: AzureCLI@2
                 inputs:
                   azureSubscription: ${{ variables.service_connection }}
-                  scriptType: 'ps'
+                  scriptType: 'pscore'
                   scriptLocation: 'inlineScript'
                   inlineScript: |
                     SUBSCRIPTION_NAME="${{ deployment.subscription_name }}"
