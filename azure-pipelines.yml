@@ -131,12 +131,13 @@ stages:
               vmImage: ${{ variables.agentPool }}
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
             steps:
-              - task: AzureCLI@2
+              - task: AzurePowerShell@5
                 inputs:
-                  azureSubscription: ${{ variables.service_connection }}
-                  scriptType: 'pscore'
-                  scriptLocation: 'inlineScript'
-                  inlineScript: |
+                  ConnectedServiceNameARM: ${{ variables.service_connection }}
+                  TargetAzurePs: 'LatestVersion'
+                  pwsh: true
+                  scriptType: 'inlineScript'
+                  inline: |
                     $SUBSCRIPTION_NAME="${{ deployment.subscription_name }}"
                     az extension add --name account --yes
                     az account subscription list --query "[?displayName=='$SUBSCRIPTION_NAME'].{subscriptionId:subscriptionId}"
