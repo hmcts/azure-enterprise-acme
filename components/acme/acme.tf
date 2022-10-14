@@ -1,6 +1,8 @@
 module "acme" {
-
   source = "git::https://github.com/hmcts/terraform-module-acme-function.git?ref=DTSPO-9746/acme-kv"
+  providers = {
+    azurerm = azurerm.acme
+   }
 
   location                       = var.location
   env                            = var.env

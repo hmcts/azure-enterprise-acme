@@ -12,6 +12,12 @@ provider "azurerm" {
   features {}
 }
 
+provider "azurerm" {
+  features {}
+  subscription_id = var.subscription_id
+  alias = "acme"
+}
+
 provider "azuread" {}
 
 data "azurerm_client_config" "core" {}

@@ -25,7 +25,7 @@ parameters:
     type: object
     default:
       - stage: 'dcd_cft_sandbox'
-        service_connection: 'dcd-cft-sandbox'
+        service_connection: 'GA'
       # - stage: 'dcd_cftappsdata_demo'
       #   service_connection: 'dcd-cftappsdata-demo'
       # - stage: 'dcd_cftapps_demo'
@@ -129,41 +129,48 @@ stages:
               vmImage: ${{ variables.agentPool }}
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
             steps:
-              - template: steps/terraform.yaml@cnp-azuredevops-libraries
-                parameters:
-                  overrideAction: ${{ parameters.overrideAction }}
-                  ${{ if contains(deployment.stage, 'demo') }}:
-                    environment: 'demo'
-                  ${{ if contains(deployment.stage, 'dev') }}:
-                    environment: 'dev'
-                  ${{ if contains(deployment.stage, 'qa') }}:
-                    environment: 'dev'
-                  ${{ if contains(deployment.stage, 'ithc') }}:
-                    environment: 'ithc'
-                  ${{ if contains(deployment.stage, 'ptl') }}:
-                    environment: 'ptl'
-                  ${{ if contains(deployment.stage, 'ptlsbox') }}:
-                    environment: 'ptlsbox'
-                  ${{ if contains(deployment.stage, 'prod') }}:
-                    environment: 'prod'                    
-                  ${{ if contains(deployment.stage, 'sbox') }}:
-                    environment: 'sbox'
-                  ${{ if contains(deployment.stage, 'sandbox') }}:
-                    environment: 'sbox'
-                  ${{ if contains(deployment.stage, 'stg') }}:
-                    environment: 'stg'
-                  ${{ if contains(deployment.stage, 'test') }}:
-                    environment: 'test'
-                  component: ${{ variables.component }}
-                  serviceConnection: ${{ deployment.service_connection }}
-                  terraformInitSubscription: ${{ variables.init_subscription }}
-                  ${{ if contains(deployment.stage, 'cft') }}:
-                    product: 'cft-platform'
-                  ${{ if contains(deployment.stage, 'cnp') }}:
-                    product: 'cft-platform'
-                  ${{ if contains(deployment.stage, 'sharedservices') }}:
-                    product: 'sds-platform'
-                  ${{ if contains(deployment.stage, 'hub') }}:
-                    product: 'hub'
-                  ${{ if contains(deployment.stage, 'soc') }}:
-                    product: 'soc'
+              - task: AzureCLI@2
+                inputs:
+                  azureSubscription: ${{ deployment.service_connection }}
+                  scriptType: 'bash'
+                  scriptLocation: 'inlineScript'
+                  arguments: $[replace(deployment.stage, '_', '-')]
+                  inlineScript: 'az account subscription list --query "[?displayName=='$SUBSCRIPTION_NAME'].{subscriptionId:subscriptionId}" --only-show-errors -o tsv'
+              # - template: steps/terraform.yaml@cnp-azuredevops-libraries
+              #   parameters:
+              #     overrideAction: ${{ parameters.overrideAction }}
+              #     ${{ if contains(deployment.stage, 'demo') }}:
+              #       environment: 'demo'
+              #     ${{ if contains(deployment.stage, 'dev') }}:
+              #       environment: 'dev'
+              #     ${{ if contains(deployment.stage, 'qa') }}:
+              #       environment: 'dev'
+              #     ${{ if contains(deployment.stage, 'ithc') }}:
+              #       environment: 'ithc'
+              #     ${{ if contains(deployment.stage, 'ptl') }}:
+              #       environment: 'ptl'
+              #     ${{ if contains(deployment.stage, 'ptlsbox') }}:
+              #       environment: 'ptlsbox'
+              #     ${{ if contains(deployment.stage, 'prod') }}:
+              #       environment: 'prod'                    
+              #     ${{ if contains(deployment.stage, 'sbox') }}:
+              #       environment: 'sbox'
+              #     ${{ if contains(deployment.stage, 'sandbox') }}:
+              #       environment: 'sbox'
+              #     ${{ if contains(deployment.stage, 'stg') }}:
+              #       environment: 'stg'
+              #     ${{ if contains(deployment.stage, 'test') }}:
+              #       environment: 'test'
+              #     component: ${{ variables.component }}
+              #     serviceConnection: ${{ deployment.service_connection }}
+              #     terraformInitSubscription: ${{ variables.init_subscription }}
+              #     ${{ if contains(deployment.stage, 'cft') }}:
+              #       product: 'cft-platform'
+              #     ${{ if contains(deployment.stage, 'cnp') }}:
+              #       product: 'cft-platform'
+              #     ${{ if contains(deployment.stage, 'sharedservices') }}:
+              #       product: 'sds-platform'
+              #     ${{ if contains(deployment.stage, 'hub') }}:
+              #       product: 'hub'
+              #     ${{ if contains(deployment.stage, 'soc') }}:
+              #       product: 'soc'
