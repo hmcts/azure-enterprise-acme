@@ -9,7 +9,7 @@ resources:
   repositories:
     - repository: cnp-azuredevops-libraries
       type: github
-      ref: refs/heads/DTSPO-9746/update-pipeline
+      ref: refs/heads/master
       name: hmcts/cnp-azuredevops-libraries
       endpoint: 'hmcts (1)'
 
@@ -25,7 +25,7 @@ parameters:
     type: object
     default:
       - stage: 'dcd_cft_sandbox'
-        subscription_name: 'dcd-cft-sandbox'
+        service_connection: 'dcd-cft-sandbox'
       # - stage: 'dcd_cftappsdata_demo'
       #   service_connection: 'dcd-cftappsdata-demo'
       # - stage: 'dcd_cftapps_demo'
@@ -101,8 +101,6 @@ variables:
     value: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
   - name: component
     value: acme
-  - name: service_connection
-    value: 'dcd-cft-sandbox'
 
 
 stages:
@@ -126,32 +124,13 @@ stages:
         ${{ else }}:
           dependsOn: 'dcd_cft_sandbox'
         jobs:
-          - job: GetSubscriptionId
-            pool:
-              vmImage: ${{ variables.agentPool }}
-            timeoutInMinutes: ${{ variables.timeoutInMinutes }}
-            steps:
-              - task: AzurePowerShell@5
-                inputs:
-                  ConnectedServiceNameARM: ${{ variables.service_connection }}
-                  TargetAzurePs: 'LatestVersion'
-                  pwsh: true
-                  scriptType: 'inlineScript'
-                  inline: |
-                    $SUBSCRIPTION_NAME="${{ deployment.subscription_name }}"
-                    Install-Module Az.Accounts -Force
-                    Set-AzContext -Subscription $SUBSCRIPTION_NAME | Out-Null
-                    $SUBSCRIPTION_ID=(Get-AzSubscription -SubscriptionName $SUBSCRIPTION_NAME | Select-Object -ExpandProperty Id)
-                    Write-Host "##vso[task.setvariable variable=subscriptionId;isOutput=true]$SUBSCRIPTION_ID"
           - job: TerraformPlanApply
-            dependsOn: GetSubscriptionId
             pool:
               vmImage: ${{ variables.agentPool }}
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
             steps:
               - template: steps/terraform.yaml@cnp-azuredevops-libraries
                 parameters:
-                  subscription: ${{ deployment.subscription_name }}
                   overrideAction: ${{ parameters.overrideAction }}
                   ${{ if contains(deployment.stage, 'demo') }}:
                     environment: 'demo'
@@ -176,7 +155,7 @@ stages:
                   ${{ if contains(deployment.stage, 'test') }}:
                     environment: 'test'
                   component: ${{ variables.component }}
-                  serviceConnection: ${{ variables.service_connection }}
+                  serviceConnection: ${{ deployment.service_connection }}
                   terraformInitSubscription: ${{ variables.init_subscription }}
                   ${{ if contains(deployment.stage, 'cft') }}:
                     product: 'cft-platform'
