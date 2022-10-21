@@ -1,6 +1,6 @@
 module "acme" {
 
-  source = "git::https://github.com/hmcts/terraform-module-acme-function.git?ref=DTSPO-9746/acme-kv"
+  source = "git::https://github.com/hmcts/terraform-module-acme-function.git?ref=master"
 
   location                       = var.location
   env                            = var.env
