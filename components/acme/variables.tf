@@ -28,3 +28,7 @@ variable "acme_storage_account_repl_type" {
 variable "allow_nested_items_to_be_public" {
   default = false
 }
+
+variable "administrator_group_object_id" {}
+
+variable "dns_contributor_group_object_id" {}
