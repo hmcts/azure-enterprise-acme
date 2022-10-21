@@ -25,236 +25,71 @@ parameters:
     type: object
     default:
       - stage: 'dcd_cft_sandbox'
-        environment: 'sbox'
-        component: 'acme'
-        product: 'cft-platform'
         service_connection: 'dcd-cft-sandbox'
-        init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-        dependsOn: 'Precheck'
       # - stage: 'dcd_cftappsdata_demo'
-      #   environment: 'sbox'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dcd-cftappsdata-demo'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dcd_cftapps_demo'
-      #   environment: 'sbox'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dcd-cftapps-demo'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dcd_cftapps_dev'
-      #   environment: 'sbox'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dcd-cftapps-dev'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dcd_cftapps_ithc'
-      #   environment: 'ithc'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dcd-cftapps-ithc'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dcd_cftapps_prod'
-      #   environment: 'prod'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dcd-cftapps-prod'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dcd_cftapps_sbox'
-      #   environment: 'sbox'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dcd-cftapps-sbox'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dcd_cftapps_stg'
-      #   environment: 'stg'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dcd-cftapps-stg'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dcd_cftapps_test'
-      #   environment: 'test'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dcd-cftapps-test'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dcd_cft_idam_dev'
-      #   environment: 'dev'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dcd-cft-idam-dev'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dcd_cft_vh_pilot'
-      #   environment: ''
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dcd-cft-vh-pilot'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dcd_cnp_dev'
-      #   environment: 'dev'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dcd-cnp-dev'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dcd_cnp_prod'
-      #   environment: 'prod'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dcd-cnp-prod'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dcd_cnp_qa'
-      #   environment: 'dev'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dcd-cnp-qa'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dts_cftptl_intsvc'
-      #   environment: 'ptl'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dts-cftptl-intsvc'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dts_cftsbox_intsvc'
-      #   environment: 'sbox'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'dts-cftsbox-intsvc'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dts_sharedservices_demo'
-      #   environment: 'demo'
-      #   component: 'acme'
-      #   product: 'sds-platform'
       #   service_connection: 'dts-sharedservices-demo'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dts_sharedservices_dev'
-      #   environment: 'dev'
-      #   component: 'acme'
-      #   product: 'sds-platform'
       #   service_connection: 'dts-sharedservices-dev'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dts_sharedservices_ithc'
-      #   environment: 'ithc'
-      #   component: 'acme'
-      #   product: 'sds-platform'
       #   service_connection: 'dts-sharedservices-ithc'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dts_sharedservices_prod'
-      #   environment: 'prod'
-      #   component: 'acme'
-      #   product: 'sds-platform'
       #   service_connection: 'dts-sharedservices-prod'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dts_sharedservicesptl'
-      #   environment: 'ptl'
-      #   component: 'acme'
-      #   product: 'sds-platform'
       #   service_connection: 'dts-sharedservicesptl'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dts_sharedservicesptl_sbox'
-      #   environment: 'ptlsbox'
-      #   component: 'acme'
-      #   product: 'sds-platform'
       #   service_connection: 'dts-sharedservicesptl-sbox'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dts_sharedservices_sbox'
-      #   environment: 'sbox'
-      #   component: 'acme'
-      #   product: 'sds-platform'
       #   service_connection: 'dts-sharedservices-sbox'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dts_sharedservices_stg'
-      #   environment: 'stg'
-      #   component: 'acme'
-      #   product: 'sds-platform'
       #   service_connection: 'dts-sharedservices-stg'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'dts_sharedservices_test'
-      #   environment: 'test'
-      #   component: 'acme'
-      #   product: 'sds-platform'
       #   service_connection: 'dts-sharedservices-test'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'hmcts_hub_dev'
-      #   environment: 'dev'
-      #   component: 'acme'
-      #   product: 'hub'
       #   service_connection: 'hmcts-hub-dev'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'hmcts_hub_prod_intsvc'
-      #   environment: 'prod'
-      #   component: 'acme'
-      #   product: 'hub'
       #   service_connection: 'hmcts-hub-prod-intsvc'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'hmcts_hub_sbox'
-      #   environment: 'sbox'
-      #   component: 'acme'
-      #   product: 'hub'
       #   service_connection: 'hmcts-hub-sbox'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'hmcts_hub_sbox_intsvc'
-      #   environment: 'sbox'
-      #   component: 'acme'
-      #   product: 'hub'
       #   service_connection: 'hmcts-hub-sbox-intsvc'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'hmcts_hub_test'
-      #   environment: 'test'
-      #   component: 'acme'
-      #   product: 'hub'
       #   service_connection: 'hmcts-hub-test'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'hmcts_soc_prod'
-      #   environment: 'prod'
-      #   component: 'acme'
-      #   product: 'soc'
       #   service_connection: 'hmcts-soc-prod'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'hmcts_soc_sbox'
-      #   environment: 'sbox'
-      #   component: 'acme'
-      #   product: 'soc'
       #   service_connection: 'hmcts-soc-sbox'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
       # - stage: 'reform_cft_vh_dev'
-      #   environment: 'dev'
-      #   component: 'acme'
-      #   product: 'cft-platform'
       #   service_connection: 'reform-cft-vh-dev'
-      #   init_subscription: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
-      #   dependsOn: 'dcd_cft_sandbox'
 
 variables:
   - name: timeoutInMinutes
@@ -262,6 +97,10 @@ variables:
   - name: agentPool
     value: ubuntu-latest
   - template: vars/input-variables.yaml@cnp-azuredevops-libraries
+  - name: init_subscription
+    value: '04d27a32-7a07-48b3-95b8-3c8691e1a263'
+  - name: component
+    value: acme
 
 
 stages:
@@ -278,20 +117,54 @@ stages:
               keyvaultSecret: 'azure-devops-token'
               serviceConnection: 'DCD-CFT-Sandbox'
 
-  # - ${{ each deployment in parameters.environment_components }}:
-  #     - stage: ${{ deployment.stage }}
-  #       dependsOn: ${{ deployment.dependsOn }}
-  #       jobs:
-  #         - job: TerraformPlanApply
-  #           pool:
-  #             vmImage: ${{ variables.agentPool }}
-  #           timeoutInMinutes: ${{ variables.timeoutInMinutes }}
-  #           steps:
-  #             - template: steps/terraform.yaml@cnp-azuredevops-libraries
-  #               parameters:
-  #                 overrideAction: ${{ parameters.overrideAction }}
-  #                 environment: ${{ deployment.environment }}
-  #                 component: ${{ deployment.component }}
-  #                 serviceConnection: ${{ deployment.service_connection }}
-  #                 terraformInitSubscription: ${{ deployment.init_subscription }}
-  #                 product: ${{ deployment.product }}
+  - ${{ each deployment in parameters.environment_components }}:
+      - stage: ${{ deployment.stage }}
+        ${{ if eq(deployment.stage, 'dcd_cft_sandbox') }}:
+          dependsOn: 'Precheck'
+        ${{ else }}:
+          dependsOn: 'dcd_cft_sandbox'
+        jobs:
+          - job: TerraformPlanApply
+            pool:
+              vmImage: ${{ variables.agentPool }}
+            timeoutInMinutes: ${{ variables.timeoutInMinutes }}
+            steps:
+              - template: steps/terraform.yaml@cnp-azuredevops-libraries
+                parameters:
+                  overrideAction: ${{ parameters.overrideAction }}
+                  ${{ if contains(deployment.stage, 'demo') }}:
+                    environment: 'demo'
+                  ${{ if contains(deployment.stage, 'dev') }}:
+                    environment: 'dev'
+                  ${{ if contains(deployment.stage, 'qa') }}:
+                    environment: 'dev'
+                  ${{ if contains(deployment.stage, 'ithc') }}:
+                    environment: 'ithc'
+                  ${{ if contains(deployment.stage, 'ptl') }}:
+                    environment: 'ptl'
+                  ${{ if contains(deployment.stage, 'ptlsbox') }}:
+                    environment: 'ptlsbox'
+                  ${{ if contains(deployment.stage, 'prod') }}:
+                    environment: 'prod'                    
+                  ${{ if contains(deployment.stage, 'sbox') }}:
+                    environment: 'sbox'
+                  ${{ if contains(deployment.stage, 'sandbox') }}:
+                    environment: 'sbox'
+                  ${{ if contains(deployment.stage, 'stg') }}:
+                    environment: 'stg'
+                  ${{ if contains(deployment.stage, 'test') }}:
+                    environment: 'test'
+                  component: ${{ variables.component }}
+                  serviceConnection: ${{ deployment.service_connection }}
+                  terraformInitSubscription: ${{ variables.init_subscription }}
+                  ${{ if contains(deployment.stage, 'cft') }}:
+                    product: 'cft-platform'
+                  ${{ if contains(deployment.stage, 'cnp') }}:
+                    product: 'cft-platform'
+                  ${{ if contains(deployment.stage, 'sharedservices') }}:
+                    product: 'sds-platform'
+                  ${{ if contains(deployment.stage, 'hub') }}:
+                    product: 'hub'
+                  ${{ if contains(deployment.stage, 'soc') }}:
+                    product: 'soc'
+

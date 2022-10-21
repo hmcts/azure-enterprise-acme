@@ -24,3 +24,7 @@ variable "location" {
 variable "acme_storage_account_repl_type" {
   default = "ZRS"
 }
+
+variable "allow_nested_items_to_be_public" {
+  default = false
+}
