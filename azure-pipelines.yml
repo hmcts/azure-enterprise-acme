@@ -142,11 +142,11 @@ stages:
                     environment: 'ithc'
                   ${{ if contains(deployment.stage, 'ptl') }}:
                     environment: 'ptl'
-                  ${{ if contains(deployment.stage, 'ptlsbox') }}:
+                  ${{ if contains(deployment.stage, 'ptl-sbox') }}:
                     environment: 'ptlsbox'
                   ${{ if contains(deployment.stage, 'prod') }}:
                     environment: 'prod'                    
-                  ${{ if and(contains(deployment.stage, 'sbox'), not(contains(deployment.stage, 'ptlsbox'))) }}:
+                  ${{ if and(contains(deployment.stage, 'sbox'), not(contains(deployment.stage, 'ptl-sbox'))) }}:
                     environment: 'sbox'
                   ${{ if contains(deployment.stage, 'sandbox') }}:
                     environment: 'sbox'
