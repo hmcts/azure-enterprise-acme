@@ -144,6 +144,8 @@ stages:
                     environment: 'ptl'
                   ${{ if contains(deployment.stage, 'ptlsbox') }}:
                     environment: 'ptlsbox'
+                  ${{ if contains(deployment.stage, 'ptl-sbox') }}:
+                    environment: 'ptlsbox'
                   ${{ if contains(deployment.stage, 'prod') }}:
                     environment: 'prod'                    
                   ${{ if and(contains(deployment.stage, 'sbox'), not(contains(deployment.stage, 'ptlsbox'))) }}:
