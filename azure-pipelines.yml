@@ -137,15 +137,17 @@ stages:
                   ${{ if contains(deployment.stage, 'dev') }}:
                     environment: 'dev'
                   ${{ if contains(deployment.stage, 'qa') }}:
-                    environment: 'dev'
+                    environment: 'test'
                   ${{ if contains(deployment.stage, 'ithc') }}:
                     environment: 'ithc'
                   ${{ if and(contains(deployment.stage, 'ptl'), not(contains(deployment.stage, 'ptl_sbox'))) }}:
                     environment: 'ptl'
                   ${{ if contains(deployment.stage, 'ptl_sbox') }}:
-                    environment: 'ptl'
+                    environment: 'ptlsbox'
                   ${{ if contains(deployment.stage, 'prod') }}:
-                    environment: 'prod'                    
+                    environment: 'prod'
+                  ${{ if contains(deployment.stage, 'pilot') }}:
+                    environment: 'prod'                  
                   ${{ if and(contains(deployment.stage, 'sbox'), not(contains(deployment.stage, 'ptl_sbox'))) }}:
                     environment: 'sbox'
                   ${{ if contains(deployment.stage, 'sandbox') }}:
