@@ -156,7 +156,7 @@ stages:
                     environment: 'stg'
                   ${{ if contains(deployment.stage, 'test') }}:
                     environment: 'test'
-                  component: ${{ deployment.stage }}
+                  component: ${{ variables.component }}
                   serviceConnection: ${{ deployment.service_connection }}
                   terraformInitSubscription: ${{ variables.init_subscription }}
                   ${{ if contains(deployment.stage, 'cft') }}:
