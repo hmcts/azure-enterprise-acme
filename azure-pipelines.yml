@@ -9,7 +9,7 @@ resources:
   repositories:
     - repository: cnp-azuredevops-libraries
       type: github
-      ref: refs/heads/master
+      ref: refs/heads/DTSPO-10841-Import-ACME-resources-to-new-terraform-state
       name: hmcts/cnp-azuredevops-libraries
       endpoint: 'hmcts (1)'
 
@@ -159,6 +159,7 @@ stages:
                   component: ${{ variables.component }}
                   serviceConnection: ${{ deployment.service_connection }}
                   terraformInitSubscription: ${{ variables.init_subscription }}
+                  stage: ${{ deployment.stage }}
                   ${{ if contains(deployment.stage, 'cft') }}:
                     product: 'cft-platform'
                   ${{ if contains(deployment.stage, 'cnp') }}:
