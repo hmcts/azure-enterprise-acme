@@ -121,8 +121,8 @@ stages:
               serviceConnection: 'DCD-CFT-Sandbox'
 
   - ${{ each deployment in parameters.environment_components }}:
-      - stage: ${{ deployment.stage }}_acme
-          dependsOn: ${{ deployment.dependsOn }}_acme
+      - stage: "${{ deployment.stage }}_acme"
+          dependsOn: "${{ deployment.dependsOn }}_acme"
         jobs:
           - job: TerraformPlanApply
             pool:
