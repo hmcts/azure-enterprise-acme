@@ -6,7 +6,7 @@
  * 
  */
 
- resource "azurerm_resource_group" "rg" {
+resource "azurerm_resource_group" "rg" {
   location = var.location
   name     = "${var.product}-${var.env}-rg"
   tags     = module.tags.common_tags
