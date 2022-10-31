@@ -118,11 +118,11 @@ stages:
               serviceConnection: 'DCD-CFT-Sandbox'
 
   - ${{ each deployment in parameters.environment_components }}:
-      - stage: "${{ deployment.stage }}_acme"
-        ${{ if eq(deployment.stage_acme, 'dcd_cft_sandbox_acme') }}:
+      - stage: ${{ deployment.stage }}
+        ${{ if eq(deployment.stage, 'dcd_cft_sandbox') }}:
           dependsOn: 'Precheck'
         ${{ else }}:
-          dependsOn: 'dcd_cft_sandbox_acme'
+          dependsOn: 'dcd_cft_sandbox'
         jobs:
           - job: TerraformPlanApply
             pool:
