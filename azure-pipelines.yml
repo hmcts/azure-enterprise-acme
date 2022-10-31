@@ -181,31 +181,7 @@ stages:
             steps:
               - template: steps/terraform.yaml@cnp-azuredevops-libraries
                 parameters:
-                  overrideAction: ${{ parameters.overrideAction }}
-                  ${{ if contains(deployment.stage, 'demo') }}:
-                    environment: 'demo'
-                  ${{ if contains(deployment.stage, 'dev') }}:
-                    environment: 'dev'
-                  ${{ if contains(deployment.stage, 'qa') }}:
-                    environment: 'test'
-                  ${{ if contains(deployment.stage, 'ithc') }}:
-                    environment: 'ithc'
-                  ${{ if and(contains(deployment.stage, 'ptl'), not(contains(deployment.stage, 'ptl_sbox'))) }}:
-                    environment: 'ptl'
-                  ${{ if contains(deployment.stage, 'ptl_sbox') }}:
-                    environment: 'ptlsbox'
-                  ${{ if contains(deployment.stage, 'prod') }}:
-                    environment: 'prod'
-                  ${{ if contains(deployment.stage, 'pilot') }}:
-                    environment: 'prod'                  
-                  ${{ if and(contains(deployment.stage, 'sbox'), not(contains(deployment.stage, 'ptl_sbox'))) }}:
-                    environment: 'sbox'
-                  ${{ if contains(deployment.stage, 'sandbox') }}:
-                    environment: 'sbox'
-                  ${{ if contains(deployment.stage, 'stg') }}:
-                    environment: 'stg'
-                  ${{ if contains(deployment.stage, 'test') }}:
-                    environment: 'test'
+                  environment:  'prod'
                   component: 'dns_zone_contributor'
                   serviceConnection: 'GA'
                   terraformInitSubscription: ${{ variables.init_subscription }}
