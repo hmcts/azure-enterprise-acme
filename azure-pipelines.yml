@@ -119,7 +119,7 @@ stages:
 
   - ${{ each deployment in parameters.environment_components }}:
       - stage: "${{ deployment.stage }}_acme"
-        ${{ if eq(deployment.stage, 'dcd_cft_sandbox_acme') }}:
+        ${{ if eq(deployment.stage_acme, 'dcd_cft_sandbox_acme') }}:
           dependsOn: 'Precheck'
         ${{ else }}:
           dependsOn: 'dcd_cft_sandbox_acme'
@@ -173,7 +173,7 @@ stages:
 
   - ${{ each deployment in parameters.environment_components }}:
       - stage: "${{ deployment.stage }}_dns"
-        ${{ if eq(deployment.stage, 'dcd_cft_sandbox_dns') }}:
+        ${{ if eq(deployment.stage_dns, 'dcd_cft_sandbox_dns') }}:
           dependsOn: 'Precheck'
         ${{ else }}:
           dependsOn: 'dcd_cft_sandbox_dns'
