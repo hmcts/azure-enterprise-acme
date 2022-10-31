@@ -119,10 +119,10 @@ stages:
 
   - ${{ each deployment in parameters.environment_components }}:
       - stage: "${{ deployment.stage }}_acme"
-        ${{ if eq(deployment.stage, 'dcd_cft_sandbox') }}:
+        ${{ if eq(deployment.stage, 'dcd_cft_sandbox_acme') }}:
           dependsOn: 'Precheck'
         ${{ else }}:
-          dependsOn: 'dcd_cft_sandbox'
+          dependsOn: 'dcd_cft_sandbox_acme'
         jobs:
           - job: TerraformPlanApply
             pool:
@@ -173,10 +173,10 @@ stages:
 
   - ${{ each deployment in parameters.environment_components }}:
       - stage: "${{ deployment.stage }}_dns"
-        ${{ if eq(deployment.stage, 'dcd_cft_sandbox') }}:
+        ${{ if eq(deployment.stage, 'dcd_cft_sandbox_dns') }}:
           dependsOn: 'Precheck'
         ${{ else }}:
-          dependsOn: 'dcd_cft_sandbox'
+          dependsOn: 'dcd_cft_sandbox_dns'
         jobs:
           - job: TerraformPlanApply
             pool:
