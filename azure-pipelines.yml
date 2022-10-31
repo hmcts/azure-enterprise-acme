@@ -118,7 +118,7 @@ stages:
               serviceConnection: 'DCD-CFT-Sandbox'
 
   - ${{ each deployment in parameters.environment_components }}:
-      - stage: ${{ deployment.stage }}
+      - stage: "${{ deployment.stage }}_acme"
         ${{ if eq(deployment.stage, 'dcd_cft_sandbox') }}:
           dependsOn: 'Precheck'
         ${{ else }}:
@@ -172,7 +172,7 @@ stages:
                     product: 'soc'
 
   - ${{ each deployment in parameters.environment_components }}:
-      - stage: ${{ deployment.stage }}
+      - stage: "${{ deployment.stage }}_dns"
         ${{ if eq(deployment.stage, 'dcd_cft_sandbox') }}:
           dependsOn: 'Precheck'
         ${{ else }}:
