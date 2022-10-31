@@ -17,3 +17,7 @@ data "azuread_group" "dns_contributor" {
 data "azuread_application" "appreg" {
   display_name = "acme-${lower(data.azurerm_subscription.current.display_name)}"
 }
+
+data "azurerm_subscription" "subscriptionid" {
+  subscription_id = data.azurerm_client_config.current.subscription_id
+}
