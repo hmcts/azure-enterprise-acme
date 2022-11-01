@@ -2,7 +2,7 @@ az ad group owner add --group "DTS Public DNS Contributor (env:sbox)" --owner-ob
 az ad group owner add --group "DTS Public DNS Contributor (env:sbox)" --owner-object-id $(az ad sp list --display-name "DTS Bootstrap (sub:dts-cftsbox-intsvc)" --query '[].{id:id}' -o tsv)
 az ad group owner add --group "DTS Public DNS Contributor (env:sbox)" --owner-object-id $(az ad sp list --display-name "DTS Bootstrap (sub:dts-sharedservices-sbox)" --query '[].{id:id}' -o tsv)
 az ad group owner add --group "DTS Public DNS Contributor (env:sbox)" --owner-object-id $(az ad sp list --display-name "DTS Bootstrap (sub:hmcts-hub-sbox)" --query '[].{id:id}' -o tsv)
-az ad group owner add --group "DTS Public DNS Contributor (env:sbox)" --owner-object-id $(az ad sp list --display-name "DTS Bootstrap (sub:cts-hub-sbox-intsvchm)" --query '[].{id:id}' -o tsv)
+az ad group owner add --group "DTS Public DNS Contributor (env:sbox)" --owner-object-id $(az ad sp list --display-name "DTS Bootstrap (sub:hmcts-hub-sbox-intsvc)" --query '[].{id:id}' -o tsv)
 az ad group owner add --group "DTS Public DNS Contributor (env:sbox)" --owner-object-id $(az ad sp list --display-name "DTS Bootstrap (sub:hmcts-soc-sbox)" --query '[].{id:id}' -o tsv)
 az ad group owner add --group "DTS Public DNS Contributor (env:demo)" --owner-object-id $(az ad sp list --display-name "DTS Bootstrap (sub:dcd-cftappsdata-demo)" --query '[].{id:id}' -o tsv)
 az ad group owner add --group "DTS Public DNS Contributor (env:demo)" --owner-object-id $(az ad sp list --display-name "DTS Bootstrap (sub:dcd-cftapps-demo)" --query '[].{id:id}' -o tsv)
