@@ -170,29 +170,21 @@ stages:
                     product: 'hub'
                   ${{ if contains(deployment.stage, 'soc') }}:
                     product: 'soc'
-
-  - ${{ each deployment in parameters.environment_components }}:
-      - stage: "${{ deployment.stage }}_dns"
-        jobs:
-          - job: TerraformPlanApply
-            pool:
-              vmImage: ${{ variables.agentPool }}
-            timeoutInMinutes: ${{ variables.timeoutInMinutes }}
-            steps:
-              - template: steps/terraform.yaml@cnp-azuredevops-libraries
-                parameters:
-                  environment:  'prod'
-                  component: 'dns_zone_contributor'
-                  serviceConnection: 'GA'
-                  terraformInitSubscription: ${{ variables.init_subscription }}
-                  stage: ${{ deployment.stage }}
-                  ${{ if contains(deployment.stage, 'cft') }}:
-                    product: 'cft-platform'
-                  ${{ if contains(deployment.stage, 'cnp') }}:
-                    product: 'cft-platform'
-                  ${{ if contains(deployment.stage, 'sharedservices') }}:
-                    product: 'sds-platform'
-                  ${{ if contains(deployment.stage, 'hub') }}:
-                    product: 'hub'
-                  ${{ if contains(deployment.stage, 'soc') }}:
-                    product: 'soc'
+              # - template: steps/terraform.yaml@cnp-azuredevops-libraries
+              #   parameters:
+              #     overrideAction: ${{ parameters.overrideAction }}
+              #     environment:  'prod'
+              #     component: 'dns_zone_contributor'
+              #     serviceConnection: 'GA'
+              #     terraformInitSubscription: ${{ variables.init_subscription }}
+              #     stage: ${{ deployment.stage }}
+              #     ${{ if contains(deployment.stage, 'cft') }}:
+              #       product: 'cft-platform'
+              #     ${{ if contains(deployment.stage, 'cnp') }}:
+              #       product: 'cft-platform'
+              #     ${{ if contains(deployment.stage, 'sharedservices') }}:
+              #       product: 'sds-platform'
+              #     ${{ if contains(deployment.stage, 'hub') }}:
+              #       product: 'hub'
+              #     ${{ if contains(deployment.stage, 'soc') }}:
+              #       product: 'soc'
