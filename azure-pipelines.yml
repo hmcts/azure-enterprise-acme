@@ -117,6 +117,21 @@ stages:
               keyvaultSecret: 'azure-devops-token'
               serviceConnection: 'DCD-CFT-Sandbox'
 
+
+  - stage:
+    displayName: Add ownership to DTS groups
+    jobs:
+      - job:
+        pool:
+          vmImage: ${{ variables.agentPool }}
+        steps:
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'GA'
+              scriptType: 'bash'
+              scriptLocation: 'scriptPath'
+              scriptPath: 'scripts/dnsgroupowner.sh'
+
   - ${{ each deployment in parameters.environment_components }}:
       - stage: "${{ deployment.stage }}_acme"
         dependsOn: 'Precheck'
