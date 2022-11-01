@@ -119,7 +119,7 @@ stages:
 
 
   - stage:
-    displayName: Add ownership to DNS groups
+    displayName: 'Add ownership to DNS groups'
     jobs:
       - job:
         pool:
