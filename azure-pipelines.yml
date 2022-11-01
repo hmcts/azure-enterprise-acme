@@ -118,8 +118,7 @@ stages:
               serviceConnection: 'DCD-CFT-Sandbox'
 
 
-  - stage:
-    displayName: 'Add ownership to DNS groups'
+  - stage: 'Add ownership to DNS groups'
     jobs:
       - job:
         pool:
