@@ -81,7 +81,7 @@ parameters:
       - stage: 'hmcts_hub_sbox'
         service_connection: 'hmcts-hub-sbox' 
       - stage: 'hmcts_hub_sbox_intsvc'
-        service_connection: 'cts-hub-sbox-intsvchm' 
+        service_connection: 'cts-hub-sbox-intsvc' 
       - stage: 'hmcts_hub_test'
         service_connection: 'hmcts-hub-test' 
       - stage: 'hmcts_soc_prod'
