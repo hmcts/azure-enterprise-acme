@@ -68,6 +68,6 @@ resource "azurerm_windows_function_app" "funcapp" {
 }
 
 resource "azuread_group_member" "dnszonecontributor" {
-  group_object_id  = var.dns_contributor_group_object_id
+  group_object_id  = data.azuread_group.dns_contributor.object_id
   member_object_id = azurerm_windows_function_app.funcapp.identity[0].principal_id
 }
