@@ -9,7 +9,7 @@ resources:
   repositories:
     - repository: cnp-azuredevops-libraries
       type: github
-      ref: refs/heads/master
+      ref: refs/heads/DTSPO-10841-Import-ACME-resources
       name: hmcts/cnp-azuredevops-libraries
       endpoint: 'hmcts (1)'
 
@@ -26,13 +26,10 @@ parameters:
     default:
       - stage: 'dcd_cft_sandbox'
         service_connection: 'dcd-cft-sandbox'
-        dependsOn: 'Precheck' 
       - stage: 'dcd_cftappsdata_demo'
         service_connection: 'dcd-cftappsdata-demo'
-        dependsOn: 'dcd_cft_sandbox_acme' 
       - stage: 'dcd_cftapps_demo'
         service_connection: 'dcd-cftapps-demo'
-        dependsOn: 'dcd_cft_sandbox_acme' 
      # - stage: 'dcd_cftapps_dev'
      #   service_connection: 'dcd-cftapps-dev' 
      # - stage: 'dcd_cftapps_ithc'
