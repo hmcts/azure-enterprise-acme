@@ -118,7 +118,7 @@ stages:
               serviceConnection: 'DCD-CFT-Sandbox'
 
 
-  - stage: 'Add ownership to DNS groups'
+  - stage: 'Add_ownership_to_DNS_groups'
     jobs:
       - job:
         pool:
@@ -133,7 +133,7 @@ stages:
 
   - ${{ each deployment in parameters.environment_components }}:
       - stage: "${{ deployment.stage }}_acme"
-        dependsOn: 'Add ownership to DNS groups'
+        dependsOn: 'Add_ownership_to_DNS_groups'
         jobs:
           - job: TerraformPlanApply
             pool:
