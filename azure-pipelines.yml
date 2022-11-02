@@ -55,7 +55,7 @@ parameters:
       - stage: 'dts_cftptl_intsvc'
         service_connection: 'dts-cftptl-intsvc' 
       - stage: 'dts_cftsbox_intsvc'
-        service_connection: 'dts-cftsbox-intsvc' 
+        service_connection: 'dts-cftsbox-intsvc'
       - stage: 'dts_sharedservices_demo'
         service_connection: 'dts-sharedservices-demo' 
       - stage: 'dts_sharedservices_dev'
@@ -75,7 +75,7 @@ parameters:
       - stage: 'dts_sharedservices_test'
         service_connection: 'dts-sharedservices-test'
       - stage: 'hmcts_hub_dev' 
-        service_connection: 'hmcts-hub-dev' 
+        service_connection: 'hmcts-hub-dev'
       - stage: 'hmcts_hub_prod_intsvc'
         service_connection: 'hmcts-hub-prod-intsvc' 
       - stage: 'hmcts_hub_sbox'
@@ -89,7 +89,7 @@ parameters:
       - stage: 'hmcts_soc_sbox'
         service_connection: 'hmcts-soc-sbox' 
       - stage: 'reform_cft_vh_dev'
-        service_connection: 'reform-cft-vh-dev' 
+        service_connection: 'reform-cft-vh-dev'
 
 variables:
   - name: timeoutInMinutes
@@ -125,6 +125,7 @@ stages:
           vmImage: ${{ variables.agentPool }}
         steps:
           - task: AzureCLI@2
+            continueOnError: true
             inputs:
               azureSubscription: 'GA'
               scriptType: 'bash'

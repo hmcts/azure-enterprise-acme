@@ -76,14 +76,14 @@ for subscription in $(echo "${subscriptions[@]}" | jq -c '.[]'); do
     az account set -s ${SUBSCRIPTION_NAME}
 
     RESOURCE_GROUP_ID=$(az group show --name ${PRODUCT}-${ENVIRONMENT}-rg --query '{id:id}' -o tsv)
-    KEYVAULT_ID=$(az keyvault show --name "acme"$(echo ${SUBSCRIPTION_NAME} | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g') --query '{id:id}' -o tsv)
-    STORAGE_ACCOUNT_ID=$(az storage account list --query "[?name=='acme$(echo ${SUBSCRIPTION_NAME} | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g')'].{id:id}" -o tsv)
+    KEYVAULT_ID=$(az keyvault show --name "acme"$(echo "${SUBSCRIPTION_NAME/SHAREDSERVICES/$SDS}" | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g') --query '{id:id}' -o tsv)
+    STORAGE_ACCOUNT_ID=$(az storage account list --query "[?name=='acme$(echo "${SUBSCRIPTION_NAME/SHAREDSERVICES/$SDS}" | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g')'].{id:id}" -o tsv)
     FUNCTION_APP_READER=$(az role assignment list --assignee ${SP_OBJECT_ID} --scope ${RESOURCE_GROUP_ID} --query "[?roleDefinitionName=='Reader'].{id:id}" -o tsv)
     FUNCTION_APP_KV_ACCESS=$(az role assignment list --assignee ${SP_OBJECT_ID} --scope ${KEYVAULT_ID} --query "[?roleDefinitionName=='Key Vault Administrator'].{id:id}" -o tsv)
     KV_GROUP_ACCESS=$(az role assignment list --assignee ${DTS_GROUP_OBJECT_ID} --scope ${KEYVAULT_ID} --query "[?roleDefinitionName=='Key Vault Administrator'].{id:id}" -o tsv)
     APP_SERVICE_PLAN=$(az appservice plan show -n ${PRODUCT}-${ENVIRONMENT}-asp -g ${PRODUCT}-${ENVIRONMENT}-rg --query '{id:id}' -o tsv)
-    FUNCTION_APP_ID=$(az functionapp show -n "acme"$(echo ${SUBSCRIPTION_NAME} | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g') -g ${PRODUCT}-${ENVIRONMENT}-rg --query '{id:id}' -o tsv)
-    FUNCTION_APP_OBJECT_ID=$(az functionapp show -n "acme"$(echo ${SUBSCRIPTION_NAME} | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g') -g ${PRODUCT}-${ENVIRONMENT}-rg --query "identity.principalId" -o tsv)
+    FUNCTION_APP_ID=$(az functionapp show -n "acme"$(echo "${SUBSCRIPTION_NAME/SHAREDSERVICES/$SDS}" | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g') -g ${PRODUCT}-${ENVIRONMENT}-rg --query '{id:id}' -o tsv)
+    FUNCTION_APP_OBJECT_ID=$(az functionapp show -n "acme"$(echo "${SUBSCRIPTION_NAME/SHAREDSERVICES/$SDS}" | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g') -g ${PRODUCT}-${ENVIRONMENT}-rg --query "identity.principalId" -o tsv)
     APPLICATION_INSIGHT_ID=$(az monitor app-insights component show -a ${PRODUCT}-${ENVIRONMENT} -g ${PRODUCT}-${ENVIRONMENT}-rg --query '{id:id}' -o tsv)
 
         if [ "$1" = "--import" ]; then
@@ -116,8 +116,8 @@ for subscription in $(echo "${subscriptions[@]}" | jq -c '.[]'); do
             terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_application_insights.appinsight ${APPLICATION_INSIGHT_ID}
 
         else
-            echo "ACME keyvault $(echo "acme"$(echo ${SUBSCRIPTION_NAME} | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g')) will be imported to azurerm_key_vault.kv"
-            echo "ACME storage account $(echo "acme"$(echo ${SUBSCRIPTION_NAME} | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g')) will be imported to azurerm_storage_account.stg"
+            echo "ACME keyvault $(echo "acme"$(echo "${SUBSCRIPTION_NAME/SHAREDSERVICES/$SDS}" | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g')) will be imported to azurerm_key_vault.kv"
+            echo "ACME storage account $(echo "acme"$(echo "${SUBSCRIPTION_NAME/SHAREDSERVICES/$SDS}" | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g')) will be imported to azurerm_storage_account.stg"
             echo "Role assignment $FUNCTION_APP_READER"
             echo "Role assignment $FUNCTION_APP_KV_ACCESS"
             echo "Role assignment $KV_GROUP_ACCESS"
