@@ -57,7 +57,7 @@ parameters:
       - stage: 'dts_cftsbox_intsvc'
         service_connection: 'dts-cftsbox-intsvc'
       - stage: 'dts_sharedservices_demo'
-        service_connection: 'dts-sharedservices-demo' 
+        service_connection: 'dts-sharedservices-demo'
       - stage: 'dts_sharedservices_dev'
         service_connection: 'dts-sharedservices-dev' 
       - stage: 'dts_sharedservices_ithc'
