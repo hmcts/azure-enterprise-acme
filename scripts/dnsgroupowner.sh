@@ -1,0 +1,1 @@
+az ad group owner add --group "DTS Public DNS Contributor (env:sbox)" --owner-object-id $(az ad sp list --display-name "DTS Bootstrap (sub:dcd-cftapps-sbox)" --query '[].{id:id}' -o tsv)

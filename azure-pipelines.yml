@@ -25,11 +25,11 @@ parameters:
     type: object
     default:
       - stage: 'dcd_cft_sandbox'
-        service_connection: 'dcd-cft-sandbox' 
+        service_connection: 'dcd-cft-sandbox'
       - stage: 'dcd_cftappsdata_demo'
-        service_connection: 'dcd-cftappsdata-demo' 
+        service_connection: 'dcd-cftappsdata-demo'
       - stage: 'dcd_cftapps_demo'
-        service_connection: 'dcd-cftapps-demo' 
+        service_connection: 'dcd-cftapps-demo'
       - stage: 'dcd_cftapps_dev'
         service_connection: 'dcd-cftapps-dev' 
       - stage: 'dcd_cftapps_ithc'
@@ -39,9 +39,9 @@ parameters:
       - stage: 'dcd_cftapps_sbox'
         service_connection: 'dcd-cftapps-sbox' 
       - stage: 'dcd_cftapps_stg'
-        service_connection: 'dcd-cftapps-stg' 
+        service_connection: 'dcd-cftapps-stg'
       - stage: 'dcd_cftapps_test'
-        service_connection: 'dcd-cftapps-test' 
+        service_connection: 'dcd-cftapps-test'     
       - stage: 'dcd_cft_idam_dev'
         service_connection: 'dcd-cft-idam-dev' 
       - stage: 'dcd_cft_vh_pilot'
@@ -55,9 +55,9 @@ parameters:
       - stage: 'dts_cftptl_intsvc'
         service_connection: 'dts-cftptl-intsvc' 
       - stage: 'dts_cftsbox_intsvc'
-        service_connection: 'dts-cftsbox-intsvc' 
+        service_connection: 'dts-cftsbox-intsvc'
       - stage: 'dts_sharedservices_demo'
-        service_connection: 'dts-sharedservices-demo' 
+        service_connection: 'dts-sharedservices-demo'
       - stage: 'dts_sharedservices_dev'
         service_connection: 'dts-sharedservices-dev' 
       - stage: 'dts_sharedservices_ithc'
@@ -75,7 +75,7 @@ parameters:
       - stage: 'dts_sharedservices_test'
         service_connection: 'dts-sharedservices-test'
       - stage: 'hmcts_hub_dev' 
-        service_connection: 'hmcts-hub-dev' 
+        service_connection: 'hmcts-hub-dev'
       - stage: 'hmcts_hub_prod_intsvc'
         service_connection: 'hmcts-hub-prod-intsvc' 
       - stage: 'hmcts_hub_sbox'
@@ -89,7 +89,7 @@ parameters:
       - stage: 'hmcts_soc_sbox'
         service_connection: 'hmcts-soc-sbox' 
       - stage: 'reform_cft_vh_dev'
-        service_connection: 'reform-cft-vh-dev' 
+        service_connection: 'reform-cft-vh-dev'
 
 variables:
   - name: timeoutInMinutes
@@ -117,12 +117,24 @@ stages:
               keyvaultSecret: 'azure-devops-token'
               serviceConnection: 'DCD-CFT-Sandbox'
 
+
+  - stage: 'Add_ownership_to_DNS_groups'
+    jobs:
+      - job:
+        pool:
+          vmImage: ${{ variables.agentPool }}
+        steps:
+          - task: AzureCLI@2
+            continueOnError: true
+            inputs:
+              azureSubscription: 'GA'
+              scriptType: 'bash'
+              scriptLocation: 'scriptPath'
+              scriptPath: 'scripts/dnsgroupowner.sh'
+
   - ${{ each deployment in parameters.environment_components }}:
-      - stage: ${{ deployment.stage }}
-        ${{ if eq(deployment.stage, 'dcd_cft_sandbox') }}:
-          dependsOn: 'Precheck'
-        ${{ else }}:
-          dependsOn: 'dcd_cft_sandbox'
+      - stage: "${{ deployment.stage }}_acme"
+        dependsOn: 'Add_ownership_to_DNS_groups'
         jobs:
           - job: TerraformPlanApply
             pool:
@@ -170,4 +182,3 @@ stages:
                     product: 'hub'
                   ${{ if contains(deployment.stage, 'soc') }}:
                     product: 'soc'
-
