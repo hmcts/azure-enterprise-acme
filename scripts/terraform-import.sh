@@ -92,28 +92,17 @@ for subscription in $(echo "${subscriptions[@]}" | jq -c '.[]'); do
             echo "Running Terraform Init"
             terraform init -backend-config=storage_account_name="$(echo c${SUBSCRIPTION_ID:0:8}${SUBSCRIPTION_ID:24:32}sa)" -backend-config=container_name=subscription-tfstate -backend-config=key="UK South/${PRODUCT}/azure-enterprise-acme/${ENVIRONMENT}/acme/terraform.tfstate" -backend-config=resource_group_name=azure-control-${ENVIRONMENT}-rg -backend-config=subscription_id=${SUBSCRIPTION_ID} -backend-config=tenant_id=${TENANT_ID} -backend-config=subscription_id=${BACKEND_SUBSCRIPTION_ID}
 
-            # terraform state rm  module.acme.azurerm_key_vault.kv
-            # terraform state rm  module.acme.azurerm_storage_account.stg 
-            # terraform state rm  module.acme.azurerm_role_assignment.Reader
-            # terraform state rm  module.acme.azurerm_role_assignment.kvaccess
-            # terraform state rm  module.acme.azurerm_role_assignment.kvgroupaccess
-            # terraform state rm  module.acme.azurerm_resource_group.rg 
-            # terraform state rm  module.acme.azurerm_service_plan.asp
-            # terraform state rm  module.acme.azurerm_windows_function_app.funcapp
-            # terraform state rm  module.acme.azuread_group_member.dnszonecontributor
-            # terraform state rm  module.acme.azurerm_application_insights.appinsight
-
            echo "Importing ACME resources into terraform state..."
-            # terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_key_vault.kv $KEYVAULT_ID
-            # terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_storage_account.stg $STORAGE_ACCOUNT_ID
+            terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_key_vault.kv $KEYVAULT_ID
+            terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_storage_account.stg $STORAGE_ACCOUNT_ID
              terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_role_assignment.Reader ${FUNCTION_APP_READER}
              terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_role_assignment.kvaccess ${FUNCTION_APP_KV_ACCESS}
              terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_role_assignment.kvgroupaccess ${KV_GROUP_ACCESS}
-            # terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_resource_group.rg ${RESOURCE_GROUP_ID}
-            # terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_service_plan.asp ${APP_SERVICE_PLAN}
-            # terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_windows_function_app.funcapp ${FUNCTION_APP_ID}
-            # terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azuread_group_member.dnszonecontributor ${DTS_Public_DNS_Contributor_ID}/member/${FUNCTION_APP_OBJECT_ID}
-            # terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_application_insights.appinsight ${APPLICATION_INSIGHT_ID}
+            terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_resource_group.rg ${RESOURCE_GROUP_ID}
+            terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_service_plan.asp ${APP_SERVICE_PLAN}
+            terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_windows_function_app.funcapp ${FUNCTION_APP_ID}
+            terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azuread_group_member.dnszonecontributor ${DTS_Public_DNS_Contributor_ID}/member/${FUNCTION_APP_OBJECT_ID}
+            terraform import -var builtFrom=azure-enterprise -var env=${ENVIRONMENT} -var product=enterprise -var-file=../../environments/${ENVIRONMENT}/${ENVIRONMENT}.tfvars azurerm_application_insights.appinsight ${APPLICATION_INSIGHT_ID}
 
         else
             echo "ACME keyvault $(echo "acme"$(echo "${SUBSCRIPTION_NAME/SHAREDSERVICES/$SDS}" | tr '[:upper:]' '[:lower:]' | sed -e 's/-//g')) will be imported to azurerm_key_vault.kv"
