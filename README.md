@@ -29,6 +29,12 @@ The service connection names can only contain letters, numbers and underscores.
 
 The pipeline parameters for environment and product will be computed based on the name of the subscription.
 
+When adding a new subscription you need to make the Service Principal of the new subscription the owner of the DTS Public DNS Contributor (env:ENVIRONMENT) group.
+
+Update the script in scripts/dnsgroupowner.sh with the correct ENVIRONMENT and SUBSCRIPTION,  Uncomment the Add_ownership_to_DNS_groups Stage and change the dependsOn in Stage ${{ deployment.stage }}_acme to 'Add_ownership_to_DNS_groups' on the azure-pipeline.yml.
+
+Once the pipeline has ran and added the ownership to the group you need to comment out Add_ownership_to_DNS_groups Stage and change the dependsOn in Stage ${{ deployment.stage }}_acme to Precheck.
+
 ## Importing an existing subscription
 
 1. Ensure you have azure-cli installed and logged in as well as terraform and jq.
