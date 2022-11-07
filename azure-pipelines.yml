@@ -118,23 +118,23 @@ stages:
               serviceConnection: 'DCD-CFT-Sandbox'
 
 
-  - stage: 'Add_ownership_to_DNS_groups'
-    jobs:
-      - job:
-        pool:
-          vmImage: ${{ variables.agentPool }}
-        steps:
-          - task: AzureCLI@2
-            continueOnError: true
-            inputs:
-              azureSubscription: 'GA'
-              scriptType: 'bash'
-              scriptLocation: 'scriptPath'
-              scriptPath: 'scripts/dnsgroupowner.sh'
+#   - stage: 'Add_ownership_to_DNS_groups'
+#     jobs:
+#       - job:
+#         pool:
+#           vmImage: ${{ variables.agentPool }}
+#         steps:
+#           - task: AzureCLI@2
+#             continueOnError: true
+#             inputs:
+#               azureSubscription: 'GA'
+#               scriptType: 'bash'
+#               scriptLocation: 'scriptPath'
+#               scriptPath: 'scripts/dnsgroupowner.sh'
 
   - ${{ each deployment in parameters.environment_components }}:
       - stage: "${{ deployment.stage }}_acme"
-        dependsOn: 'Add_ownership_to_DNS_groups'
+        dependsOn: 'Precheck'
         jobs:
           - job: TerraformPlanApply
             pool:
