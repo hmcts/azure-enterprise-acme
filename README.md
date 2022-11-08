@@ -29,11 +29,24 @@ The service connection names can only contain letters, numbers and underscores.
 
 The pipeline parameters for environment and product will be computed based on the name of the subscription.
 
-When adding a new subscription you need to make the Service Principal of the new subscription the owner of the DTS Public DNS Contributor (env:ENVIRONMENT) group.
+When adding a new subscription you need to make the Service Principal of the new subscription `DTS Bootstrap (sub:SUBSCRIPTION_NAME)` the owner of the `DTS Public DNS Contributor (env:ENVIRONMENT)` group.
 
-Update the script in scripts/dnsgroupowner.sh with the correct ENVIRONMENT and SUBSCRIPTION,  Uncomment the Add_ownership_to_DNS_groups Stage and change the dependsOn in Stage ${{ deployment.stage }}_acme to 'Add_ownership_to_DNS_groups' on the azure-pipeline.yml.
+To grant yourself permissions:
+Go to the [PIM settings](https://portal.azure.com/#blade/Microsoft_Azure_PIMCommon/CommonMenuBlade/quickStart).
 
-Once the pipeline has ran and added the ownership to the group you need to comment out Add_ownership_to_DNS_groups Stage and change the dependsOn in Stage ${{ deployment.stage }}_acme to Precheck.
+Click on My roles under tasks in the left hand side. Select Group Administrator and select activate. Then submit your request for elevated permissions. Once that is complete you will be able to run the command below successfully. 
+
+Edit and run the command below, replacing ENVIRONMENT_NAME with the environment name and SUBSCRIPTION_NAME with the subscription name.
+
+```shell
+az ad group owner add --group "DTS Public DNS Contributor (env:ENVIRONMENT_NAME)" --owner-object-id $(az ad sp list --display-name "DTS Bootstrap (sub:SUBSCRIPTION_NAME)" --query '[].{id:id}' -o tsv)
+```
+
+For example if you wanted to make `DTS Bootstrap (sub:dcd-cftapps-sbox)` a group owner of the `DTS Public DNS Contributor (env:sbox)` group you would run the following command:
+
+```shell
+az ad group owner add --group "DTS Public DNS Contributor (env:sbox)" --owner-object-id $(az ad sp list --display-name "DTS Bootstrap (sub:dcd-cftapps-sbox)" --query '[].{id:id}' -o tsv)
+```
 
 ## Importing an existing subscription
 
