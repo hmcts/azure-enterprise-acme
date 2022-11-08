@@ -29,6 +29,24 @@ The service connection names can only contain letters, numbers and underscores.
 
 The pipeline parameters for environment and product will be computed based on the name of the subscription.
 
+When adding a new subscription you need to make the Service Principal of the new subscription `DTS Bootstrap (sub:SUBSCRIPTION_NAME)` the owner of the `DTS Public DNS Contributor (env:ENVIRONMENT)` group.
+
+Elevate your permissions by going to the [PIM settings](https://portal.azure.com/#blade/Microsoft_Azure_PIMCommon/CommonMenuBlade/quickStart).
+
+Click on My roles under tasks in the left hand side. Select Group Administrator and select activate. Then submit your request for elevated permissions. Once that is complete you will be able to run the command below successfully. 
+
+Edit and run the command below, replacing ENVIRONMENT_NAME with the environment name and SUBSCRIPTION_NAME with the subscription name.
+
+```shell
+az ad group owner add --group "DTS Public DNS Contributor (env:ENVIRONMENT_NAME)" --owner-object-id $(az ad sp list --display-name "DTS Bootstrap (sub:SUBSCRIPTION_NAME)" --query '[].{id:id}' -o tsv)
+```
+
+For example if you wanted to make `DTS Bootstrap (sub:dcd-cftapps-sbox)` a group owner of the `DTS Public DNS Contributor (env:sbox)` group you would run the following command:
+
+```shell
+az ad group owner add --group "DTS Public DNS Contributor (env:sbox)" --owner-object-id $(az ad sp list --display-name "DTS Bootstrap (sub:dcd-cftapps-sbox)" --query '[].{id:id}' -o tsv)
+```
+
 ## Importing an existing subscription
 
 1. Ensure you have azure-cli installed and logged in as well as terraform and jq.
