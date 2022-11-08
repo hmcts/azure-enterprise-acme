@@ -31,8 +31,7 @@ The pipeline parameters for environment and product will be computed based on th
 
 When adding a new subscription you need to make the Service Principal of the new subscription `DTS Bootstrap (sub:SUBSCRIPTION_NAME)` the owner of the `DTS Public DNS Contributor (env:ENVIRONMENT)` group.
 
-To grant yourself permissions:
-Go to the [PIM settings](https://portal.azure.com/#blade/Microsoft_Azure_PIMCommon/CommonMenuBlade/quickStart).
+Elevate your permissions by going to the [PIM settings](https://portal.azure.com/#blade/Microsoft_Azure_PIMCommon/CommonMenuBlade/quickStart).
 
 Click on My roles under tasks in the left hand side. Select Group Administrator and select activate. Then submit your request for elevated permissions. Once that is complete you will be able to run the command below successfully. 
 
