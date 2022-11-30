@@ -58,7 +58,7 @@ resource "azurerm_windows_function_app" "funcapp" {
     WEBSITE_CONTENTSHARE                       = "${var.product}-${var.env}"
     WEBSITE_RUN_FROM_PACKAGE                   = "https://stacmebotprod.blob.core.windows.net/keyvault-acmebot/v4/latest.zip"
     FUNCTIONS_WORKER_RUNTIME                   = "dotnet"
-    "Acmebot:AzureDns:SubscriptionId"          = data.azurerm_subscription.subscriptionid.subscription_id
+    "Acmebot:AzureDns:SubscriptionId"          = "ed302caf-ec27-4c64-a05e-85731c3ce90e"
     "Acmebot:Contacts"                         = "cnp-acme-owner@hmcts.net"
     "Acmebot:Endpoint"                         = "https://acme-v02.api.letsencrypt.org/"
     "Acmebot:VaultBaseUrl"                     = azurerm_key_vault.kv.vault_uri
