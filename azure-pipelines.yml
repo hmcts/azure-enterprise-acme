@@ -90,6 +90,8 @@ parameters:
         service_connection: 'hmcts-soc-sbox' 
       - stage: 'reform_cft_vh_dev'
         service_connection: 'reform-cft-vh-dev'
+      - stage: 'dts-archiving-test'
+        service_connection: 'DTS-ARCHIVING-TEST'
 
 variables:
   - name: timeoutInMinutes
