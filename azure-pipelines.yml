@@ -171,3 +171,5 @@ stages:
                     product: 'hub'
                   ${{ if contains(deployment.stage, 'soc') }}:
                     product: 'soc'
+                  ${{ if contains(deployment.stage, 'archiving') }}:
+                    product: 'arm'
