@@ -92,6 +92,8 @@ parameters:
         service_connection: 'reform-cft-vh-dev'
       - stage: 'dts_archiving_test'
         service_connection: 'DTS-ARCHIVING-TEST'
+      - stage: 'dts_archiving_prod'
+        service_connection: 'DTS-ARCHIVING-PROD'
 
 variables:
   - name: timeoutInMinutes
