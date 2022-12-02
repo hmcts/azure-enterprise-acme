@@ -90,6 +90,10 @@ parameters:
         service_connection: 'hmcts-soc-sbox' 
       - stage: 'reform_cft_vh_dev'
         service_connection: 'reform-cft-vh-dev'
+      - stage: 'dts_archiving_test'
+        service_connection: 'DTS-ARCHIVING-TEST'
+      - stage: 'dts_archiving_prod'
+        service_connection: 'DTS-ARCHIVING-PROD'
 
 variables:
   - name: timeoutInMinutes
@@ -169,3 +173,5 @@ stages:
                     product: 'hub'
                   ${{ if contains(deployment.stage, 'soc') }}:
                     product: 'soc'
+                  ${{ if contains(deployment.stage, 'archiving') }}:
+                    product: 'arm'
