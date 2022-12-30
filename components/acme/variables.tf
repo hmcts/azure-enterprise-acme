@@ -28,3 +28,8 @@ variable "acme_storage_account_repl_type" {
 variable "allow_nested_items_to_be_public" {
   default = false
 }
+
+variable "expiresAfter" {
+  description = "Date when Sandbox resources can be deleted. Format: YYYY-MM-DD"
+  default     = "3000-01-01"
+}
