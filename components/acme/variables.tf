@@ -33,3 +33,9 @@ variable "expiresAfter" {
   description = "Date when Sandbox resources can be deleted. Format: YYYY-MM-DD"
   default     = "3000-01-01"
 }
+
+variable "subscription_id" {
+  description = "The ID of the subscription that contains the DNS Zones"
+  default     = "ed302caf-ec27-4c64-a05e-85731c3ce90e"
+  type        = string
+}
