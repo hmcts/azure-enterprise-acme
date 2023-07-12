@@ -74,6 +74,7 @@ resource "azuread_group_member" "dnszonecontributor" {
 }
 
 resource "azuread_group_member" "dnszonecontributor-groups" {
-  group_object_id  = data.azuread_group.dns_contributor_groups.object_id
+  for_each = data.azuread_group.dns_contributor_groups
+  group_object_id  = each.value.outputs.object_id
   member_object_id = azurerm_windows_function_app.funcapp.identity[0].principal_id
 }
