@@ -41,6 +41,6 @@ variable "subscription_id" {
 }
 
 variable "additional_dns_contributor_envs" {
-  type = set(string)
+  type    = set(string)
   default = []
 }
