@@ -21,3 +21,8 @@ data "azuread_application" "appreg" {
 data "azurerm_subscription" "subscriptionid" {
   subscription_id = data.azurerm_client_config.current.subscription_id
 }
+
+data "azuread_group" "dns_contributor_groups" {
+  for_each     = var.additional_dns_contributor_envs
+  display_name = "DTS Public DNS Contributor (env:${lower(each.key)})"
+}
