@@ -26,3 +26,7 @@ data "azuread_group" "dns_contributor_groups" {
   for_each     = var.additional_dns_contributor_envs
   display_name = "DTS Public DNS Contributor (env:${lower(each.key)})"
 }
+
+data "azuread_service_principal" "app_proxy_ga_service_connection" {
+  display_name = "DTS Operations Bootstrap GA"
+}
