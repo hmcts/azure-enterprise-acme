@@ -21,3 +21,9 @@ resource "azurerm_role_assignment" "app-proxy-ga-service-connection-secret-manag
   role_definition_name = "Key Vault Secrets User"
   scope                = azurerm_key_vault.kv.id
 }
+
+resource "azurerm_role_assignment" "app-proxy-ga-service-connection-certificate-management" {
+  principal_id         = data.azuread_group.platform_operations.object_id
+  role_definition_name = "Key Vault Certificates Officer"
+  scope                = azurerm_key_vault.kv.id
+}
