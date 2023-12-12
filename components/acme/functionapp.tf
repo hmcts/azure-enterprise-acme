@@ -13,10 +13,9 @@ resource "azurerm_key_vault" "kv" {
 module "application_insights" {
   source = "git::https://github.com/hmcts/terraform-module-application-insights?ref=main"
 
-  env     = var.env
-  product = var.product
-  name    = var.product
-
+  env                 = var.env
+  product             = var.product
+  name                = var.product
   resource_group_name = azurerm_resource_group.rg.name
 
   common_tags = module.tags.common_tags
