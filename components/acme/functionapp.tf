@@ -9,12 +9,22 @@ resource "azurerm_key_vault" "kv" {
   enabled_for_deployment    = true
 }
 
-resource "azurerm_application_insights" "appinsight" {
-  application_type    = "web"
-  location            = var.location
-  name                = "${var.product}-${var.env}"
+
+module "application_insights" {
+  source = "git@github.com:hmcts/terraform-module-application-insights?ref=main"
+
+  env     = var.env
+  product = var.product
+  name    = var.product
+
   resource_group_name = azurerm_resource_group.rg.name
-  tags                = module.tags.common_tags
+
+  common_tags = module.tags.common_tags
+}
+
+moved {
+  from = azurerm_application_insights.appinsights
+  to   = module.application_insights.azurerm_application_insights.this
 }
 
 resource "azurerm_storage_account" "stg" {
