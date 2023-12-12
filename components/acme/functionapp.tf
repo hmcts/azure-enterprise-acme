@@ -9,12 +9,21 @@ resource "azurerm_key_vault" "kv" {
   enabled_for_deployment    = true
 }
 
-resource "azurerm_application_insights" "appinsight" {
-  application_type    = "web"
-  location            = var.location
-  name                = "${var.product}-${var.env}"
+
+module "application_insights" {
+  source = "git::https://github.com/hmcts/terraform-module-application-insights?ref=main"
+
+  env                 = var.env
+  product             = var.product
+  name                = var.product
   resource_group_name = azurerm_resource_group.rg.name
-  tags                = module.tags.common_tags
+
+  common_tags = module.tags.common_tags
+}
+
+moved {
+  from = azurerm_application_insights.appinsight
+  to   = module.application_insights.azurerm_application_insights.this
 }
 
 resource "azurerm_storage_account" "stg" {
@@ -37,7 +46,7 @@ resource "azurerm_windows_function_app" "funcapp" {
   service_plan_id            = azurerm_service_plan.asp.id
 
   site_config {
-    application_insights_connection_string = "InstrumentationKey=${azurerm_application_insights.appinsight.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
+    application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
   }
 
   identity {
