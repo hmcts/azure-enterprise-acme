@@ -11,7 +11,7 @@ resource "azurerm_key_vault" "kv" {
 
 
 module "application_insights" {
-  source = "git@github.com:hmcts/terraform-module-application-insights?ref=main"
+  source = "git::https://github.com/hmcts/terraform-module-application-insights?ref=main"
 
   env     = var.env
   product = var.product
