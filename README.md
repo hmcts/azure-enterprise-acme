@@ -23,9 +23,9 @@ To add a new subscription, simply add a stage to the environment_components para
         service_connection: 'dcd-cft-sandbox'
 ```
 
-The stage names in Azure DevOps can only contain letters, numbers and hyphens. 
+The stage names in Azure DevOps can only contain letters, numbers and underscores. 
 
-The service connection names can only contain letters, numbers and underscores.
+The service connection names can only contain letters, numbers and hyphens.
 
 The pipeline parameters for environment and product will be computed based on the name of the subscription.
 
