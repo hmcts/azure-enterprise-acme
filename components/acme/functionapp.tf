@@ -59,7 +59,7 @@ resource "azurerm_windows_function_app" "funcapp" {
     default_provider              = "AzureActiveDirectory"
     issuer                        = "https://sts.windows.net/531ff96d-0ae9-462a-8d2d-bec7c0b42082/"
     active_directory {
-      client_id = data.azuread_application.appreg.application_id
+      client_id = data.azuread_application.appreg.client_id
     }
   }
   app_settings = {
