@@ -46,7 +46,11 @@ variable "additional_dns_contributor_envs" {
 }
 
 variable "acme_version" {
-  description = "Version of keyvault-acmebot to deploy. Renovate automatically creates PRs for new releases from https://github.com/shibayan/keyvault-acmebot/releases"
+  description = "Version of keyvault-acmebot to deploy. Must be in the form vMAJOR.MINOR.PATCH (e.g. v4.3.1). Renovate automatically creates PRs for new releases from https://github.com/shibayan/keyvault-acmebot/releases"
   type        = string
   default     = "v4.3.1"
+  validation {
+    condition     = can(regex("^v[0-9]+\\.[0-9]+\\.[0-9]+$", var.acme_version))
+    error_message = "acme_version must be in form vMAJOR.MINOR.PATCH (e.g. v4.3.1)"
+  }
 }
