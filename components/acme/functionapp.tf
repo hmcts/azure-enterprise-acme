@@ -47,6 +47,10 @@ resource "azurerm_windows_function_app" "funcapp" {
 
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
+    application_stack {
+      dotnet_version              = "v8.0"
+      use_dotnet_isolated_runtime = false
+    }
   }
 
   identity {
@@ -73,6 +77,7 @@ resource "azurerm_windows_function_app" "funcapp" {
     "Acmebot:Endpoint"                         = "https://acme-v02.api.letsencrypt.org/"
     "Acmebot:VaultBaseUrl"                     = azurerm_key_vault.kv.vault_uri
     "Acmebot:Environment"                      = "AzureCloud"
+    "FUNCTIONS_INPROC_NET8_ENABLED"            = 1
   }
   tags = module.tags.common_tags
 }
