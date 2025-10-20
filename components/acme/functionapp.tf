@@ -70,7 +70,7 @@ resource "azurerm_windows_function_app" "funcapp" {
     ApplicationInsightsAgent_EXTENSION_VERSION = "~2"
     WEBSITE_CONTENTAZUREFILECONNECTIONSTRING   = azurerm_storage_account.stg.primary_connection_string
     WEBSITE_CONTENTSHARE                       = "${var.product}-${var.env}"
-    WEBSITE_RUN_FROM_PACKAGE                   = "https://stacmebotprod.blob.core.windows.net/keyvault-acmebot/${local.acme_major_version}/${var.acme_version}.zip"
+    WEBSITE_RUN_FROM_PACKAGE                   = "https://stacmebotprod.blob.core.windows.net/keyvault-acmebot/${local.acme_major_version}/${local.acme_version_no_prefix}.zip"
     FUNCTIONS_WORKER_RUNTIME                   = "dotnet"
     "Acmebot:AzureDns:SubscriptionId"          = var.subscription_id
     "Acmebot:Contacts"                         = "cnp-acme-owner@hmcts.net"
