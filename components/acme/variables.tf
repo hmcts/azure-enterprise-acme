@@ -46,7 +46,7 @@ variable "additional_dns_contributor_envs" {
 }
 
 variable "acme_version" {
-  description = "Version of the keyvault-acmebot to deploy. See https://github.com/shibayan/keyvault-acmebot/releases for available versions. Renovate will automatically create PRs for new releases."
+  description = "Version of keyvault-acmebot to deploy. Renovate automatically creates PRs for new releases from https://github.com/shibayan/keyvault-acmebot/releases"
   type        = string
   default     = "v4.3.1"
 }
