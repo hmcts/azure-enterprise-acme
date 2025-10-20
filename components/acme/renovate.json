@@ -1,5 +1,16 @@
 {
   "extends": [
     "config:base"
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": ["^components/acme/variables\\.tf$"],
+      "matchStrings": [
+        "variable \"acme_version\"[\\s\\S]*?default\\s*=\\s*\"(?<currentValue>.*?)\""
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "shibayan/keyvault-acmebot",
+      "versioningTemplate": "semver"
+    }
   ]
 }

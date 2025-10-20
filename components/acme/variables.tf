@@ -44,3 +44,9 @@ variable "additional_dns_contributor_envs" {
   type    = set(string)
   default = []
 }
+
+variable "acme_version" {
+  description = "Version of the keyvault-acmebot to deploy"
+  type        = string
+  default     = "v4.3.1"
+}
