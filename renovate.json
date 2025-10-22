@@ -3,9 +3,12 @@
   "extends": [
     "local>hmcts/.github:renovate-config"
   ],
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": ["^components/acme/variables\\.tf$"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^components/acme/variables\\.tf$/"
+      ],
       "matchStrings": [
         "variable \"acme_version\"[\\s\\S]*?default\\s*=\\s*\"(?<currentValue>.*?)\""
       ],
