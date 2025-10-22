@@ -1,1 +1,1 @@
-additional_dns_contributor_envs=["prod"]
+additional_dns_contributor_envs = ["prod"]
