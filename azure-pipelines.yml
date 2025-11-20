@@ -111,14 +111,6 @@ parameters:
       - stage: 'reform_cft_vh_dev'
         service_connection: 'reform-cft-vh-dev'
         environment: 'dev'
-      - stage: 'dts_archiving_test'
-        service_connection: 'DTS-ARCHIVING-TEST'
-        subscription_id: 'cad00ede-36df-4e04-ad0b-d34a1e94ef76'
-        environment: 'test'
-      - stage: 'dts_archiving_prod'
-        service_connection: 'DTS-ARCHIVING-PROD'
-        subscription_id: '61432c17-4377-4780-be02-d56e56ef2b07'
-        environment: 'prod'
 
 variables:
   - name: timeoutInMinutes
@@ -174,8 +166,6 @@ stages:
                     product: 'hub'
                   ${{ if contains(deployment.stage, 'soc') }}:
                     product: 'soc'
-                  ${{ if contains(deployment.stage, 'archiving') }}:
-                    product: 'arm'
                   ${{ if ne(deployment.subscription_id, '') }}:
                     planCommandOptions:
                       -var subscription_id=${{ deployment.subscription_id }}
