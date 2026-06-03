@@ -51,9 +51,6 @@ parameters:
       - stage: 'dcd_cftapps_test'
         service_connection: 'dcd-cftapps-test'
         environment: 'test'
-      - stage: 'dcd_cft_vh_pilot'
-        service_connection: 'dcd-cft-vh-pilot'
-        environment: 'prod'
       - stage: 'dcd_cnp_dev'
         service_connection: 'dcd-cnp-dev'
         environment: 'dev'
@@ -111,9 +108,6 @@ parameters:
       - stage: 'hmcts_soc_sbox'
         service_connection: 'hmcts-soc-sbox'
         environment: 'sbox'
-      - stage: 'reform_cft_vh_dev'
-        service_connection: 'reform-cft-vh-dev'
-        environment: 'dev'
 
 variables:
   - name: timeoutInMinutes
