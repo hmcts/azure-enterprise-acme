@@ -165,6 +165,8 @@ stages:
                     product: 'cft-platform'
                   ${{ if contains(deployment.stage, 'sharedservices') }}:
                     product: 'sds-platform'
+                  ${{ if contains(deployment.stage, 'sps') }}:
+                    product: 'sps-platform'
                   ${{ if contains(deployment.stage, 'hub') }}:
                     product: 'hub'
                   ${{ if contains(deployment.stage, 'soc') }}:
