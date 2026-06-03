@@ -7,6 +7,7 @@ resource "azurerm_key_vault" "kv" {
   enable_rbac_authorization = true
   tags                      = module.tags.common_tags
   enabled_for_deployment    = true
+  purge_protection_enabled  = true
 }
 
 
