@@ -33,7 +33,7 @@ When adding a new subscription you need to make the Service Principal of the new
 
 Elevate your permissions by going to the [PIM settings](https://portal.azure.com/#blade/Microsoft_Azure_PIMCommon/CommonMenuBlade/quickStart).
 
-Click on My roles under tasks in the left hand side. Select Group Administrator and select activate. Then submit your request for elevated permissions. Once that is complete you will be able to run the command below successfully. 
+Click on My roles under tasks in the left hand side. Select Activate next to User Administrator. Then submit your request for elevated permissions. Once that is complete you will be able to run the command below successfully. 
 
 Edit and run the command below, replacing ENVIRONMENT_NAME with the environment name and SUBSCRIPTION_NAME with the subscription name.
 
