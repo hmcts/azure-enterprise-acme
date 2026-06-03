@@ -51,9 +51,6 @@ parameters:
       - stage: 'dcd_cftapps_test'
         service_connection: 'dcd-cftapps-test'
         environment: 'test'
-      - stage: 'dcd_cft_vh_pilot'
-        service_connection: 'dcd-cft-vh-pilot'
-        environment: 'prod'
       - stage: 'dcd_cnp_dev'
         service_connection: 'dcd-cnp-dev'
         environment: 'dev'
@@ -96,6 +93,9 @@ parameters:
       - stage: 'dts_sharedservices_test'
         service_connection: 'dts-sharedservices-test'
         environment: 'test'
+      - stage: 'dts_sps_sbox'
+        service_connection: 'dts-sps-sbox'
+        environment: 'sbox'
       - stage: 'hmcts_hub_prod_intsvc'
         service_connection: 'hmcts-hub-prod-intsvc'
         environment: 'prod'
@@ -108,9 +108,6 @@ parameters:
       - stage: 'hmcts_soc_sbox'
         service_connection: 'hmcts-soc-sbox'
         environment: 'sbox'
-      - stage: 'reform_cft_vh_dev'
-        service_connection: 'reform-cft-vh-dev'
-        environment: 'dev'
 
 variables:
   - name: timeoutInMinutes
@@ -162,6 +159,8 @@ stages:
                     product: 'cft-platform'
                   ${{ if contains(deployment.stage, 'sharedservices') }}:
                     product: 'sds-platform'
+                  ${{ if contains(deployment.stage, 'sps') }}:
+                    product: 'sps-platform'
                   ${{ if contains(deployment.stage, 'hub') }}:
                     product: 'hub'
                   ${{ if contains(deployment.stage, 'soc') }}:
