@@ -1,0 +1,1 @@
+kv_rbac_admin_service_principals = ["DTS Bootstrap (sub:dts-sps-sbox)"]

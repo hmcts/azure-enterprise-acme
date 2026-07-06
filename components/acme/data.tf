@@ -30,3 +30,8 @@ data "azuread_group" "dns_contributor_groups" {
 data "azuread_service_principal" "app_proxy_ga_service_connection" {
   display_name = "DTS Operations Bootstrap GA"
 }
+
+data "azuread_service_principal" "kv_rbac_admin" {
+  for_each     = var.kv_rbac_admin_service_principals
+  display_name = each.value
+}

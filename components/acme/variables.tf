@@ -45,6 +45,12 @@ variable "additional_dns_contributor_envs" {
   default = []
 }
 
+variable "kv_rbac_admin_service_principals" {
+  description = "Service principal display names to grant Role Based Access Control Administrator on the ACME Key Vault"
+  type        = set(string)
+  default     = []
+}
+
 variable "acme_version" {
   description = "Version of keyvault-acmebot to deploy. Must be in the form vMAJOR.MINOR.PATCH (e.g. v4.3.1). Renovate automatically creates PRs for new releases from https://github.com/shibayan/keyvault-acmebot/releases"
   type        = string

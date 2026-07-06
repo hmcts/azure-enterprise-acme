@@ -28,3 +28,10 @@ resource "azurerm_role_assignment" "app-proxy-ga-service-connection-certificate-
   role_definition_name = "Key Vault Secrets User"
   scope                = azurerm_key_vault.kv.id
 }
+
+resource "azurerm_role_assignment" "kv-rbac-admin" {
+  for_each             = var.product == "cft-platform" ? var.kv_rbac_admin_service_principals : toset([])
+  principal_id         = data.azuread_service_principal.kv_rbac_admin[each.key].object_id
+  role_definition_name = "Role Based Access Control Administrator"
+  scope                = azurerm_key_vault.kv.id
+}
