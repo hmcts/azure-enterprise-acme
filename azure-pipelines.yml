@@ -171,9 +171,6 @@ stages:
                   serviceConnection: ${{ deployment.service_connection }}
                   terraformInitSubscription: ${{ variables.init_subscription }}
                   stage: ${{ deployment.stage }}
-                  ${{ if eq(deployment.stage, 'dts_sharedservices_sbox') }}:
-                    terraformEnvironmentVariables:
-                      TF_VAR_acme_version: 'v5.1.5'
                   ${{ if contains(deployment.stage, 'cft') }}:
                     product: 'cft-platform'
                   ${{ if contains(deployment.stage, 'cnp') }}:
