@@ -49,6 +49,7 @@ run "default_v4_runtime" {
       !azurerm_windows_function_app.funcapp.site_config[0].application_stack[0].use_dotnet_isolated_runtime &&
       azurerm_windows_function_app.funcapp.app_settings["FUNCTIONS_WORKER_RUNTIME"] == "dotnet" &&
       azurerm_windows_function_app.funcapp.app_settings["FUNCTIONS_INPROC_NET8_ENABLED"] == "1" &&
+      azurerm_windows_function_app.funcapp.app_settings["Acmebot:Endpoint"] == "https://acme-v02.api.letsencrypt.org/" &&
       !contains(keys(azurerm_windows_function_app.funcapp.app_settings), "FUNCTIONS_EXTENSION_VERSION") &&
       output.package_url == "https://stacmebotprod.blob.core.windows.net/keyvault-acmebot/v4/4.3.1.zip"
     )
@@ -69,6 +70,7 @@ run "v5_runtime" {
       azurerm_windows_function_app.funcapp.site_config[0].application_stack[0].use_dotnet_isolated_runtime &&
       azurerm_windows_function_app.funcapp.app_settings["FUNCTIONS_WORKER_RUNTIME"] == "dotnet-isolated" &&
       azurerm_windows_function_app.funcapp.app_settings["FUNCTIONS_EXTENSION_VERSION"] == "~4" &&
+      azurerm_windows_function_app.funcapp.app_settings["Acmebot:Endpoint"] == "https://acme-v02.api.letsencrypt.org/directory" &&
       !contains(keys(azurerm_windows_function_app.funcapp.app_settings), "FUNCTIONS_INPROC_NET8_ENABLED") &&
       output.package_url == "https://github.com/polymind-inc/acmebot/releases/download/v5.1.5/acmebot.zip" &&
       azurerm_windows_function_app.funcapp.app_settings["WEBSITE_RUN_FROM_PACKAGE"] == output.package_url
@@ -91,6 +93,7 @@ run "v4_rollback_runtime" {
       !azurerm_windows_function_app.funcapp.site_config[0].application_stack[0].use_dotnet_isolated_runtime &&
       azurerm_windows_function_app.funcapp.app_settings["FUNCTIONS_WORKER_RUNTIME"] == "dotnet" &&
       azurerm_windows_function_app.funcapp.app_settings["FUNCTIONS_INPROC_NET8_ENABLED"] == "1" &&
+      azurerm_windows_function_app.funcapp.app_settings["Acmebot:Endpoint"] == "https://acme-v02.api.letsencrypt.org/" &&
       !contains(keys(azurerm_windows_function_app.funcapp.app_settings), "FUNCTIONS_EXTENSION_VERSION") &&
       output.package_url == "https://stacmebotprod.blob.core.windows.net/keyvault-acmebot/v4/4.3.1.zip"
     )
