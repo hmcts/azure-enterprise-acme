@@ -49,8 +49,8 @@ resource "azurerm_windows_function_app" "funcapp" {
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     application_stack {
-      dotnet_version              = "v8.0"
-      use_dotnet_isolated_runtime = false
+      dotnet_version              = local.acme_is_v5 ? "v10.0" : "v8.0"
+      use_dotnet_isolated_runtime = local.acme_is_v5
     }
   }
 
@@ -67,19 +67,22 @@ resource "azurerm_windows_function_app" "funcapp" {
       client_id = data.azuread_application.appreg.client_id
     }
   }
-  app_settings = {
+  app_settings = merge({
     ApplicationInsightsAgent_EXTENSION_VERSION = "~2"
     WEBSITE_CONTENTAZUREFILECONNECTIONSTRING   = azurerm_storage_account.stg.primary_connection_string
     WEBSITE_CONTENTSHARE                       = "${var.product}-${var.env}"
     WEBSITE_RUN_FROM_PACKAGE                   = local.acme_package_url
-    FUNCTIONS_WORKER_RUNTIME                   = "dotnet"
+    FUNCTIONS_WORKER_RUNTIME                   = local.acme_is_v5 ? "dotnet-isolated" : "dotnet"
     "Acmebot:AzureDns:SubscriptionId"          = var.subscription_id
     "Acmebot:Contacts"                         = "cnp-acme-owner@hmcts.net"
     "Acmebot:Endpoint"                         = "https://acme-v02.api.letsencrypt.org/"
     "Acmebot:VaultBaseUrl"                     = azurerm_key_vault.kv.vault_uri
     "Acmebot:Environment"                      = "AzureCloud"
-    "FUNCTIONS_INPROC_NET8_ENABLED"            = 1
-  }
+    }, local.acme_is_v5 ? {
+    FUNCTIONS_EXTENSION_VERSION = "~4"
+    } : {
+    FUNCTIONS_INPROC_NET8_ENABLED = "1"
+  })
   tags = module.tags.common_tags
 }
 
