@@ -75,7 +75,7 @@ resource "azurerm_windows_function_app" "funcapp" {
     FUNCTIONS_WORKER_RUNTIME                   = local.acme_is_v5 ? "dotnet-isolated" : "dotnet"
     "Acmebot:AzureDns:SubscriptionId"          = var.subscription_id
     "Acmebot:Contacts"                         = "cnp-acme-owner@hmcts.net"
-    "Acmebot:Endpoint"                         = "https://acme-v02.api.letsencrypt.org/"
+    "Acmebot:Endpoint"                         = local.acme_is_v5 ? "https://acme-v02.api.letsencrypt.org/directory" : "https://acme-v02.api.letsencrypt.org/"
     "Acmebot:VaultBaseUrl"                     = azurerm_key_vault.kv.vault_uri
     "Acmebot:Environment"                      = "AzureCloud"
     }, local.acme_is_v5 ? {
