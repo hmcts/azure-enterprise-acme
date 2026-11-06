@@ -70,7 +70,8 @@ run "v5_runtime" {
       azurerm_windows_function_app.funcapp.app_settings["FUNCTIONS_WORKER_RUNTIME"] == "dotnet-isolated" &&
       azurerm_windows_function_app.funcapp.app_settings["FUNCTIONS_EXTENSION_VERSION"] == "~4" &&
       !contains(keys(azurerm_windows_function_app.funcapp.app_settings), "FUNCTIONS_INPROC_NET8_ENABLED") &&
-      output.package_url == "https://stacmebotprod.blob.core.windows.net/keyvault-acmebot/v5/5.1.5.zip"
+      output.package_url == "https://github.com/polymind-inc/acmebot/releases/download/v5.1.5/acmebot.zip" &&
+      azurerm_windows_function_app.funcapp.app_settings["WEBSITE_RUN_FROM_PACKAGE"] == output.package_url
     )
     error_message = "v5 must select its package and .NET 10 isolated configuration without the in-process flag."
   }

@@ -86,6 +86,10 @@ and removes `FUNCTIONS_INPROC_NET8_ENABLED`. v4 retains its existing .NET 8
 in-process settings. AzureRM is pinned to `4.54.0`, the first release with
 Windows Function App .NET 10 support; review plans for provider-related drift.
 
+v5 uses the pinned GitHub release ZIP via `WEBSITE_RUN_FROM_PACKAGE`, while v4
+continues to use its existing `stacmebotprod` blob URL. No v5 blob upload is
+required for this pilot.
+
 Run the configuration checks from `components/acme` using Terraform `1.17.1`:
 
 ```shell
@@ -99,10 +103,11 @@ and the v4 rollback configuration without connecting to Azure.
 
 Before applying:
 
-1. Make the official `v5.1.5` release asset `acmebot.zip` available at
-   `https://stacmebotprod.blob.core.windows.net/keyvault-acmebot/v5/5.1.5.zip`.
-   Verify it is downloadable from the Function App's network. Terraform does
-   not upload the package.
+1. Verify the pinned release ZIP is downloadable from the Function App's network:
+   `https://github.com/polymind-inc/acmebot/releases/download/v5.1.5/acmebot.zip`.
+   GitHub redirects to `release-assets.githubusercontent.com`; network access
+   must allow the redirect destination as well. Do not use the release page,
+   a `latest` URL or the temporary signed redirect URL as the package setting.
 2. Back up the SDS sandbox Function App configuration and record existing
    certificate names, versions and expiry dates. Keep the v4 package available.
 3. Manually queue the pipeline from the test branch with `overrideAction=plan`
@@ -112,6 +117,12 @@ Before applying:
 4. After review, queue the same branch with `overrideAction=apply` and the same
    stage selection. A CI-triggered main build can apply all stages automatically;
    do not merge the test before approving that wider execution.
+
+Package download and redirect handling by the Function App still need live
+verification. Upstream's update template uses OneDeploy rather than this
+external `WEBSITE_RUN_FROM_PACKAGE` configuration. If startup fails to fetch
+the ZIP, roll back before testing certificate operations and use an accessible
+Azure Storage package URL or implement OneDeploy as a separate reviewed change.
 
 Open the default domain for `acmedtssdssbox`, confirm the v5 dashboard and
 Function App startup are healthy, then issue a certificate for an approved
