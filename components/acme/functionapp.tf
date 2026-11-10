@@ -78,9 +78,7 @@ resource "azurerm_windows_function_app" "funcapp" {
     "Acmebot:Endpoint"                         = local.acme_is_v5 ? "https://acme-v02.api.letsencrypt.org/directory" : "https://acme-v02.api.letsencrypt.org/"
     "Acmebot:VaultBaseUrl"                     = azurerm_key_vault.kv.vault_uri
     "Acmebot:Environment"                      = "AzureCloud"
-    }, local.acme_is_v5 ? {
-    FUNCTIONS_EXTENSION_VERSION = "~4"
-    } : {
+    }, local.acme_is_v5 ? {} : {
     FUNCTIONS_INPROC_NET8_ENABLED = "1"
   })
   tags = module.tags.common_tags
